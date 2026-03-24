@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projects | Khan Imran</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Plus+Jakarta+Sans:wght@300;400;600&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --bg-primary: #040811;
+            --bg-secondary: #0b1323;
+            --accent-cyan: #00f0ff;
+            --accent-blue: #0077ff;
+            --text-main: #ffffff;
+            --text-muted: #8a99a8;
+            --border-color: rgba(0, 240, 255, 0.15);
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--bg-primary);
+            color: var(--text-main);
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            overflow-x: hidden;
+        }
+
+        /* --- Navbar Styles --- */
+        .navbar {
+            background-color: rgba(4, 8, 17, 0.85) !important;
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border-color);
+            transition: all 0.3s ease;
+            padding-top: 0.75rem;
+            padding-bottom: 0.75rem;
+        }
+        .navbar-brand {
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 700;
+            letter-spacing: 1px;
+            color: var(--text-main) !important;
+        }
+        .navbar-brand i {
+            color: var(--accent-cyan);
+        }
+        .navbar-nav .nav-link {
+            color: var(--text-muted) !important;
+            font-weight: 500;
+            margin: 0 0.75rem;
+            transition: color 0.3s ease;
+        }
+        .navbar-nav .nav-link:hover, .navbar-nav .nav-link.active {
+            color: var(--accent-cyan) !important;
+        }
+        .navbar-toggler {
+            border: 1px solid var(--border-color);
+        }
+        .navbar-toggler-icon {
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%280, 240, 255, 0.75%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+        }
+
+        /* --- Page-Specific Styles --- */
+        .page-header {
+            background: linear-gradient(rgba(4, 8, 17, 0.7), rgba(4, 8, 17, 1)), 
+                        url('https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=1920&q=80');
+            background-size: cover;
+            background-position: center;
+            padding-top: 60px; /* Normal padding */
+            padding-bottom: 60px;
+        }
+
+        .font-tech { font-family: 'Orbitron', sans-serif; letter-spacing: 1px; }
+        .font-code { font-family: 'JetBrains Mono', monospace; }
+
+        .glass-card {
+            background-color: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+        .glass-card:hover {
+            border-color: var(--accent-cyan);
+            box-shadow: 0 0 15px rgba(0, 240, 255, 0.1);
+            transform: translateY(-3px);
+        }
+
+        /* --- Tab Styles --- */
+        .nav-tabs .nav-link {
+            color: var(--text-muted);
+            background-color: transparent;
+            border: 1px solid var(--border-color);
+            border-bottom: 0;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-weight: 600;
+            margin-right: 5px;
+            transition: all 0.3s ease;
+        }
+        .nav-tabs .nav-link:hover {
+            color: var(--text-main);
+            border-color: var(--accent-cyan);
+        }
+        .nav-tabs .nav-link.active {
+            color: var(--bg-primary);
+            background-color: var(--accent-cyan);
+            border-color: var(--accent-cyan);
+        }
+
+        .tab-content {
+            border: 1px solid var(--border-color);
+            border-top: 0;
+            padding: 2rem;
+            background-color: var(--bg-secondary);
+            border-radius: 0 0 4px 4px;
+        }
+
+        .tech-badge {
+            background-color: rgba(0, 240, 255, 0.1);
+            color: var(--accent-cyan);
+            padding: 4px 10px;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-right: 5px;
+            display: inline-block;
+            margin-bottom: 5px;
+        }
+        
+        .project-image {
+            border-radius: 4px;
+            border: 1px solid var(--border-color);
+            width: 100%;
+            height: auto;
+        }
+
+        .gallery-image {
+            border-radius: 4px;
+            border: 1px solid var(--border-color);
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .gallery-image:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 20px rgba(0, 240, 255, 0.3);
+        }
+
+        .project-scope-list {
+            list-style: none;
+            padding-left: 0;
+        }
+        .project-scope-list li {
+            padding: 0.5rem 0;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+        .project-scope-list li:last-child {
+            border-bottom: none;
+        }
+        .project-scope-list li i {
+            color: var(--accent-cyan);
+            width: 20px;
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- ================================================================= -->
+    <!-- === SPACER FOR FIXED NAVBAR === -->
+    <!-- ================================================================= -->
+    <!-- FIX: This spacer pushes all content down to prevent overlap with the fixed navbar. -->
+    <div style="height: 76px;"></div>
+
+    <!-- ================================================================= -->
+    <!-- === NAVIGATION BAR === -->
+    <!-- ================================================================= -->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <i class="fa-solid fa-layer-group me-2"></i> GSA
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="index.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="services.html">Services</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="projects.html">Projects</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="case-studies.html">Case Studies</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="about.html">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="contact.html">Contact</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            More
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="https://www.linkedin.com/in/khanimran-prime/" target="_blank"><i class="fa-brands fa-linkedin me-2"></i>LinkedIn</a></li>
+                            <li><a class="dropdown-item" href="https://github.com/yourprofile" target="_blank"><i class="fa-brands fa-github me-2"></i>GitHub</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="/path/to/your/resume.pdf" target="_blank"><i class="fa-solid fa-file-pdf me-2"></i>Download Resume</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <!-- ================================================================= -->
+    <!-- === END OF NAVBAR === -->
+    <!-- ================================================================= -->
+
+    <header class="page-header text-center">
+        <div class="container">
+            <h1 class="font-tech fw-bold display-5 mb-3">PROJECT PORTFOLIO</h1>
+            <p class="fs-5 text-white-50">From R&D Concept to Automated Manufacturing Reality</p>
+        </div>
+    </header>
+
+    <main class="container py-5">
+        <!-- Tab Navigation -->
+        <ul class="nav nav-tabs" id="projectTabs" role="tablist">
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="tab-3d-design" data-bs-toggle="tab" data-bs-target="#content-3d-design" type="button" role="tab" aria-controls="content-3d-design" aria-selected="false"><i class="fa-solid fa-cube me-2"></i>CAD for 3D Printing</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="tab-dfm" data-bs-toggle="tab" data-bs-target="#content-dfm" type="button" role="tab" aria-controls="content-dfm" aria-selected="false"><i class="fa-solid fa-magnifying-glass me-2"></i>DFM Analysis</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="tab-cnc-design" data-bs-toggle="tab" data-bs-target="#content-cnc-design" type="button" role="tab" aria-controls="content-cnc-design" aria-selected="false"><i class="fa-solid fa-gear me-2"></i>CAD for CNC</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link active" id="tab-python-automation" data-bs-toggle="tab" data-bs-target="#content-python-automation" type="button" role="tab" aria-controls="content-python-automation" aria-selected="true"><i class="fa-solid fa-code me-2"></i>Python Automation</button>
+            </li>
+        </ul>
+
+        <!-- Tab Content -->
+        <div class="tab-content" id="projectTabContent">
+            
+            <!-- CAD for 3D Printing Tab -->
+            <div class="tab-pane fade" id="content-3d-design" role="tabpanel" aria-labelledby="tab-3d-design">
+                <div class="row g-4">
+                    <div class="col-lg-6">
+                        <img src="https://images.unsplash.com/photo-1581092160562-40aa08e78837?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" class="project-image" alt="3D Printed Drone Frame">
+                    </div>
+                    <div class="col-lg-6">
+                        <h3 class="font-tech fw-bold mb-3">Optimizing for Additive Manufacturing</h3>
+                        <p class="text-white-50">My design process for 3D printing is rooted in material science and the physics of layer-by-layer fabrication. I engineer models for printability, strength, and efficiency.</p>
+                        <ul class="project-scope-list text-white-50">
+                            <li><i class="fa-solid fa-check-circle me-2"></i>Orientation & Support Strategy Analysis</li>
+                            <li><i class="fa-solid fa-check-circle me-2"></i>Wall Thickness & Infill Optimization</li>
+                            <li><i class="fa-solid fa-check-circle me-2"></i>Overhang & Bridging Geometry Correction</li>
+                            <li><i class="fa-solid fa-check-circle me-2"></i>Final, Print-Ready STL/3MF Files</li>
+                        </ul>
+                        <div class="mt-4">
+                            <span class="tech-badge">Fusion 360</span>
+                            <span class="tech-badge">SolidWorks</span>
+                            <span class="tech-badge">Cura</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- DFM Analysis Tab -->
+            <div class="tab-pane fade" id="content-dfm" role="tabpanel" aria-labelledby="tab-dfm">
+                <div class="row g-4">
+                    <div class="col-lg-6">
+                        <img src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=800&q=80" class="project-image" alt="DFM Analysis on a metal part">
+                    </div>
+                    <div class="col-lg-6">
+                        <h3 class="font-tech fw-bold mb-3">Design for Manufacturability (DFM) Audits</h3>
+                        <p class="text-white-50">A great design is useless if it can't be manufactured reliably. I provide comprehensive DFM analysis reports that identify potential failure points and cost drivers before production begins.</p>
+                        <ul class="project-scope-list text-white-50">
+                            <li><i class="fa-solid fa-check-circle me-2"></i>Multi-Manufacturing Feasibility Report</li>
+                            <li><i class="fa-solid fa-check-circle me-2"></i>Geometric Tolerance & Fit Analysis</li>
+                            <li><i class="fa-solid fa-check-circle me-2"></i>Tool Access & Machine Collision Check</li>
+                            <li><i class="fa-solid fa-check-circle me-2"></i>Annotated CAD Model with Corrections</li>
+                        </ul>
+                        <div class="mt-4">
+                            <span class="tech-badge">SolidWorks DFMX</span>
+                            <span class="tech-badge">Autodesk Netfabb</span>
+                            <span class="tech-badge">GD&T</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CAD for CNC Tab -->
+            <div class="tab-pane fade" id="content-cnc-design" role="tabpanel" aria-labelledby="tab-cnc-design">
+                <div class="row g-4">
+                    <div class="col-lg-6">
+                        <img src="https://images.unsplash.com/photo-1559136555-9303baea8ebd?auto=format&fit=crop&w=800&q=80" class="project-image" alt="CNC Machined Aluminum Jig">
+                    </div>
+                    <div class="col-lg-6">
+                        <h3 class="font-tech fw-bold mb-3">Precision Engineering for Subtractive Manufacturing</h3>
+                        <p class="text-white-50">CNC machining demands a different design philosophy. I design with toolpaths in mind, ensuring efficient material removal, minimizing tool changes, and achieving tight tolerances with ease.</p>
+                        <ul class="project-scope-list text-white-50">
+                            <li><i class="fa-solid fa-check-circle me-2"></i>Machining-Friendly Feature Design</li>
+                            <li><i class="fa-solid fa-check-circle me-2"></i>Stock Material & Workholding Strategy</li>
+                            <li><i class="fa-solid fa-check-circle me-2"></i>Tool Radius & Draft Angle Application</li>
+                            <li><i class="fa-solid fa-check-circle me-2"></i>2D Drawings with GD&T Callouts</li>
+                        </ul>
+                        <div class="mt-4">
+                            <span class="tech-badge">Fusion 360 CAM</span>
+                            <span class="tech-badge">SolidWorks CAM</span>
+                            <span class="tech-badge">Mastercam</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Python Automation Tab (DETAILED VERSION) -->
+            <div class="tab-pane fade show active" id="content-python-automation" role="tabpanel" aria-labelledby="tab-python-automation">
+                
+                <!-- 1. Hero Section: Image + Summary -->
+                <div class="row g-5 mb-5 pb-4 border-bottom border-secondary">
+                    <div class="col-lg-7">
+                        <img src="https://images.unsplash.com/photo-1518432031352-d6fc5c10da5a?auto=format&fit=crop&w=1200&q=80" class="project-image" alt="Generative Heat Sink Design Render">
+                    </div>
+                    <div class="col-lg-5">
+                        <h3 class="font-tech fw-bold mb-3">Project: Generative Heat Sink Designer</h3>
+                        <p class="text-white-50 mb-4">
+                            Developed a Python-based automation tool for an R&D lab that transforms thermal requirements into a fully optimized, CNC-ready heat sink design in seconds. This system bridges the gap between simulation and production.
+                        </p>
+                        <div class="mb-4">
+                            <span class="tech-badge">Python</span>
+                            <span class="tech-badge">Fusion 360 API</span>
+                            <span class="tech-badge">PySide/Qt</span>
+                        </div>
+                        <h5 class="font-tech text-info mb-3">Project Scope:</h5>
+                        <ul class="project-scope-list text-white-50">
+                            <li><i class="fa-solid fa-bolt me-2"></i>Automated thermal-to-geometry translation</li>
+                            <li><i class="fa-solid fa-cog me-2"></i>Integrated DFM rule checking for CNC</li>
+                            <li><i class="fa-solid fa-gauge-high me-2"></i>Reduced design cycle from hours to minutes</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- 2. Detailed Breakdown -->
+                <div class="row g-5 mb-5 pb-4 border-bottom border-secondary">
+                    <div class="col-lg-12">
+                        <h4 class="font-tech fw-bold text-info mb-4">The Challenge & Solution</h4>
+                        <p class="text-white-50">
+                            The client's engineers were spending countless hours manually iterating on heat sink designs in CAD after running thermal simulations. Each design change required manual re-modeling, re-checking for manufacturability, and re-exporting files. This was a major bottleneck in their R&D process.
+                        </p>
+                        <p class="text-white-50">
+                            My solution was a custom Python script integrated directly into their CAD environment (Autodesk Fusion 360). The script features a simple user interface where the engineer inputs key parameters: target thermal load, maximum dimensions, and material. The script then automatically calculates the optimal fin geometry, applies all necessary CNC-specific constraints (like fillets for tool radii), validates the model against a pre-defined DFM rule set, and exports the final STEP and 2D DXF files for manufacturing.
+                        </p>
+                        <div class="glass-card p-3 font-code small mt-4">
+<pre class="mb-0 text-white-50">
+# Core Logic Snippet
+def generate_heat_sink(thermal_load, max_dims):
+    # Phase 1: Algorithmic Design
+    fin_count = calculate_optimal_fins(thermal_load)
+    fin_thickness = apply_cnc_constraint(fin_count, max_dims)
+    
+    # Phase 2: Automated CAD Modeling
+    create_base_plate(max_dims)
+    create_fin_geometry(fin_count, fin_thickness)
+    
+    # Phase 3: Validation & Export
+    validate_dfm_rules()
+    export_step_and_dxf()
+    print("Manufacturing-ready part generated.")</pre>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 3. Visual Evidence Gallery -->
+                <div class="row g-5">
+                    <div class="col-lg-12">
+                        <h4 class="font-tech fw-bold text-info mb-4">Project Gallery & Evidence</h4>
+                        <p class="text-white-50 mb-4">A visual walkthrough of the system's interface, outputs, and the final manufactured parts.</p>
+                    </div>
+                    <div class="col-md-6 col-lg-4">
+                        <img src="https://plus.unsplash.com/premium_photo-1663047019075-74ca19d974ba?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" class="img-fluid gallery-image" alt="Python GUI for the tool">
+                        <p class="small text-white-50 mt-2 text-center">Custom GUI for non-technical users.</p>
+                    </div>
+                    <div class="col-md-6 col-lg-4">
+                        <img src="https://images.unsplash.com/photo-1603732551681-2e91159b9dc2?auto=format&fit=crop&w=600&q=80" class="img-fluid gallery-image" alt="CNC Machining the part">
+                        <p class="small text-white-50 mt-2 text-center">CNC machining the generated part.</p>
+                    </div>
+                    <div class="col-md-6 col-lg-4">
+                        <img src="https://images.unsplash.com/photo-1581094794329-c8112a89af12?auto=format&fit=crop&w=600&q=80" class="img-fluid gallery-image" alt="Final installed heat sink">
+                        <p class="small text-white-50 mt-2 text-center">Final part installed and operational.</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <footer class="py-4 mt-5 border-top border-secondary">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-md-6 text-center text-md-start small text-white-50">
+                    © 2026 Khan Imran | Generative System Architect.
+                </div>
+                <div class="col-md-6 text-center text-md-end">
+                    <span class="font-tech small text-white">Logic over pixels. Value over hours.</span>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

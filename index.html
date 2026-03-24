@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Khan Imran | Generative System Architect</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Plus+Jakarta+Sans:wght@300;400;600&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --bg-primary: #040811;
+            --bg-secondary: #0b1323;
+            --accent-cyan: #00f0ff;
+            --accent-blue: #0077ff;
+            --text-main: #ffffff;
+            --text-muted: #8a99a8;
+            --border-color: rgba(0, 240, 255, 0.15);
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--bg-primary);
+            color: var(--text-main);
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            overflow-x: hidden;
+        }
+
+        /* ========================= */
+        /* === NEW NAVBAR STYLES === */
+        /* ========================= */
+        .navbar {
+            background-color: rgba(4, 8, 17, 0.85) !important;
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border-color);
+            transition: all 0.3s ease;
+            padding-top: 0.75rem;
+            padding-bottom: 0.75rem;
+        }
+
+        .navbar-brand {
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 700;
+            letter-spacing: 1px;
+            color: var(--text-main) !important;
+        }
+
+        .navbar-brand i {
+            color: var(--accent-cyan);
+        }
+
+        .navbar-nav .nav-link {
+            color: var(--text-muted) !important;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-weight: 500;
+            margin: 0 0.75rem;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .navbar-nav .nav-link:hover, .navbar-nav .nav-link.active {
+            color: var(--accent-cyan) !important;
+        }
+        
+        .navbar-nav .nav-link.active::after {
+            content: '';
+            position: absolute;
+            bottom: -10px; /* Aligns with the navbar border */
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background-color: var(--accent-cyan);
+        }
+
+        .dropdown-menu {
+            background-color: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+        }
+
+        .dropdown-item {
+            color: var(--text-muted);
+            transition: all 0.2s ease;
+        }
+
+        .dropdown-item:hover {
+            background-color: var(--bg-primary);
+            color: var(--accent-cyan);
+        }
+
+        .navbar-toggler {
+            border: 1px solid var(--border-color);
+        }
+
+        .navbar-toggler-icon {
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%280, 240, 255, 0.75%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+        }
+
+        /* ========================= */
+        /* === EXISTING STYLES === */
+        /* ========================= */
+        .font-tech { font-family: 'Orbitron', sans-serif; letter-spacing: 1px; }
+        .font-code { font-family: 'JetBrains Mono', monospace; }
+
+        .glass-card {
+            background-color: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+        .glass-card:hover {
+            border-color: var(--accent-cyan);
+            box-shadow: 0 0 15px rgba(0, 240, 255, 0.1);
+            transform: translateY(-3px);
+        }
+
+        .hero-banner {
+            background: linear-gradient(rgba(4, 8, 17, 0.85), rgba(4, 8, 17, 1)), 
+                        url('https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1920&q=80');
+            background-size: cover;
+            background-position: center;
+            min-height: 85vh;
+            margin-top: -76px; /* Pulls hero up under the transparent navbar */
+            padding-top: 76px; /* Adds padding back so content isn't hidden */
+        }
+
+        .btn-cyan {
+            background-color: var(--accent-cyan);
+            color: #000;
+            font-weight: 600;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+        .btn-cyan:hover {
+            background-color: #00c3cf;
+            box-shadow: 0 0 15px var(--accent-cyan);
+        }
+        .btn-outline-cyan {
+            border: 1px solid var(--accent-cyan);
+            color: var(--accent-cyan);
+            border-radius: 4px;
+        }
+        .btn-outline-cyan:hover {
+            background-color: var(--accent-cyan);
+            color: #000;
+        }
+
+        .metric-badge {
+            font-size: 0.8rem;
+            border: 1px solid rgba(255,255,255,0.1);
+            padding: 5px 12px;
+            border-radius: 20px;
+            background: rgba(255,255,255,0.02);
+            color: var(--text-muted);
+        }
+
+        .code-block {
+            background: #02040a;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            font-size: 0.85rem;
+            padding: 1.5rem;
+            color: #a9b7c6;
+            max-height: 350px;
+            overflow-y: auto;
+        }
+
+        .table-custom {
+            color: var(--text-main);
+            border-color: var(--border-color);
+        }
+        .table-custom th { color: var(--accent-cyan); font-family: 'Orbitron', sans-serif; font-size: 0.8rem;}
+
+        .table>:not(caption)>*>* {
+            padding: .5rem .5rem;
+            color:#a9b7c6;
+            background-color: var(--bg-secondary);
+            border-bottom-width: var(--bs-border-width);
+            box-shadow: inset 0 0 0 9999px var(--bs-table-bg-state, var(--bs-table-bg-type, var(--bs-table-accent-bg)));
+        }
+
+        hr.neon-hr {
+            border-top: 1px solid var(--border-color);
+            opacity: 1;
+        }
+        
+        /* ROI Section Styles */
+        .roi-metric {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--accent-cyan);
+            font-family: 'Orbitron', sans-serif;
+        }
+        .roi-metric-desc {
+            font-size: 1rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .roi-card {
+            background: linear-gradient(145deg, var(--bg-secondary), #0f1829);
+            border: 1px solid var(--border-color);
+            transition: all 0.4s ease;
+            height: 100%;
+        }
+        .roi-card:hover {
+            transform: scale(1.03);
+            border-color: var(--accent-cyan);
+            box-shadow: 0 0 20px rgba(0, 240, 255, 0.15);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ================================================================= -->
+    <!-- === NEW NAVIGATION BAR === -->
+    <!-- ================================================================= -->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <i class="fa-solid fa-layer-group me-2"></i> GSA
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="index.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="services.html">Services</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="projects.html">Projects</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="case-studies.html">Case Studies</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="about.html">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="contact.html">Contact</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            More
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="https://www.linkedin.com/in/khanimran-prime/" target="_blank"><i class="fa-brands fa-linkedin me-2"></i>LinkedIn</a></li>
+                            <li><a class="dropdown-item" href="https://github.com/yourprofile" target="_blank"><i class="fa-brands fa-github me-2"></i>GitHub</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="/path/to/your/resume.pdf" target="_blank"><i class="fa-solid fa-file-pdf me-2"></i>Download Resume</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <!-- ================================================================= -->
+    <!-- === END OF NEW NAVBAR === -->
+    <!-- ================================================================= -->
+
+    <section class="hero-banner d-flex align-items-center" id="home">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-7">
+                    <span class="metric-badge mb-3 d-inline-block">Design for Manufacturing (DFAM) | Python API Automation</span>
+                    <h1 class="font-tech fw-bold display-4 mb-3">GENERATIVE SYSTEM ARCHITECT</h1>
+                    <p class="fs-5 text-white-50 lh-lg mb-4">
+                        I do not sell manual CAD hours. I deliver proprietary <span class="text-white">Logic Engines</span>—scripting the mathematical constraints that bridge precision craftsmanship with automated CNC and 3D-printing pipelines.
+                    </p>
+                    <div class="d-flex gap-3">
+                        <a href="#projects" class="btn btn-cyan px-4 py-2">View Technical Deployments</a>
+                        <a href="#contact" class="btn btn-outline-cyan px-4 py-2">Consultation</a>
+                    </div>
+                </div>
+                <div class="col-lg-5 d-none d-lg-block">
+                    <div class="glass-card p-4">
+                        <div class="d-flex justify-content-between mb-2">
+                            <span class="font-tech text-info small">// SYSTEM LOAD</span>
+                            <span class="font-code small text-success">Active</span>
+                        </div>
+                        <div class="progress mb-3" style="height: 6px; background: #1a2332;">
+                            <div class="progress-bar bg-info" style="width: 85%"></div>
+                        </div>
+                        <div class="font-code small text-white-50">
+                            > Calculating trigonometric tangents... <br>
+                            > Verifying pocket depths (3x Tool Dia)... <br>
+                            > Overhang check: [PASS] <br>
+                            > Validating SolidWorks STEP linkages...
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="container py-5" id="about">
+        <div class="row g-4 text-center text-md-start">
+            <div class="col-md-4">
+                <div class="glass-card h-100 p-4">
+                    <div class="mb-3 text-info fs-3"><i class="fa-solid fa-microchip"></i></div>
+                    <h5 class="font-tech mb-3">Generative (The "Engine")</h5>
+                    <p class="text-white-50 small">Instead of manual drafting, I create the DNA of a part. Changing one variable regenerates an entire DFM-ready assembly in seconds.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="glass-card h-100 p-4">
+                    <div class="mb-3 text-info fs-3"><i class="fa-solid fa-compass-drafting"></i></div>
+                    <h5 class="font-tech mb-3">Design (The "DFM")</h5>
+                    <p class="text-white-50 small">Expert in structural constraints for both Additive (3D Print) & Subtractive (CNC Machining) workflows. Error-free geometry for manufacturing.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="glass-card h-100 p-4">
+                    <div class="mb-3 text-info fs-3"><i class="fa-solid fa-network-wired"></i></div>
+                    <h5 class="font-tech mb-3">Architect (The "Platform")</h5>
+                    <p class="text-white-50 small">Software agnostic. I write portable logic modules translated between Autodesk Fusion 360, SolidWorks, Rhino, and Python APIs.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="container"><hr class="neon-hr"></div>
+
+    <section class="container py-5" id="projects">
+        <h2 class="font-tech fw-bold mb-5 text-center text-md-start"><span class="text-info">//</span> TECHNICAL DEPLOYMENTS</h2>
+
+        <div class="row g-5 align-items-center mb-5 pb-5">
+            <div class="col-lg-6">
+                <div class="glass-card p-3">
+                    <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=800&q=80" class="img-fluid mb-3 rounded" alt="Data Analytics">
+                    <div class="p-2">
+                        <span class="metric-badge me-2">Autodesk Fusion API</span>
+                        <span class="metric-badge">Python</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <h3 class="font-tech fw-bold mb-3">01. Parametric Tooling Engine</h3>
+                <p class="text-white-50 lh-lg">
+                    A proprietary multi-hundred-line Python script that automates organic-to-mechanical intersections. The engine computes variables such as breakover angles, clearances, and mounting vectors.
+                </p>
+                <div class="glass-card p-3 mb-4 font-code small">
+                    <span class="text-success">// Automated Outcome:</span> 
+                    Reduced engineering setup and manual scaling time by over 90% for custom shop production.
+                </div>
+                <a href="#" class="btn btn-outline-cyan btn-sm">Audit System Architecture</a>
+            </div>
+        </div>
+
+        <div class="row g-5 align-items-center mb-5 pb-5">
+            <div class="col-lg-6 order-lg-2">
+                <div class="code-block font-code">
+<pre class="mb-0 text-white-50"># Single Source Logic toggled for Output
+def generate_throat_plate(mode):
+    if mode == "CNC_MILL":
+        apply_tool_radius(3.175) # Guard round bits
+        check_pocket_depth(ratio=3)
+    elif mode == "3D_PRINT":
+        check_overhang(threshold=45)
+        apply_vertical_fillets()</pre>
+                </div>
+            </div>
+            <div class="col-lg-6 order-lg-1">
+                <h3 class="font-tech fw-bold mb-3">02. Platform Agnostic Design Logic</h3>
+                <p class="text-white-50 lh-lg">
+                    Demonstrating a unified architectural script. The mathematical core of a part remains unchanged, while a toggle switch adapts the physical constraints to either **Additive (Supports/Overhangs)** or **Subtractive (Tool Radii/Depth clearances)** manufacturing.
+                </p>
+                
+                <table class="table table-bordered table-custom small">
+                    <thead>
+                        <tr>
+                            <th>Constraint</th>
+                            <th>3D Printing (Additive)</th>
+                            <th>CNC Machining (Subtractive)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Inner Corners</td>
+                            <td>Sharp allowed</td>
+                            <td>Requires Fillets (Bit Radius)</td>
+                        </tr>
+                        <tr>
+                            <td>Material</td>
+                            <td>Building Layer-by-Layer</td>
+                            <td>Removing from solid stock</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="row g-5 align-items-center">
+            <div class="col-lg-6">
+                <img src="https://images.unsplash.com/photo-1559136555-9303baea8ebd?auto=format&fit=crop&w=800&q=80" class="img-fluid rounded border border-secondary" alt="CAD Drone Design">
+            </div>
+            <div class="col-lg-6">
+                <h3 class="font-tech fw-bold mb-3">03. High-Fidelity Drone/RC Scaler</h3>
+                <p class="text-white-50 lh-lg">
+                    Transitioning a full-scale aircraft prototype to a functional 1:10 flying RC model. Managed broken STEP link dependencies, wall-thickness structural integrity for fused filament fabrication, and center-of-mass tolerance calculations.
+                </p>
+                <div class="row g-3">
+                    <div class="col-6">
+                        <div class="p-3 border border-secondary rounded text-center">
+                            <div class="font-tech text-info fs-4">1:10</div>
+                            <div class="small text-white-50">Piston scale accuracy</div>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="p-3 border border-secondary rounded text-center">
+                            <div class="font-tech text-info fs-4">100%</div>
+                            <div class="small text-white-50">DFAM ready validation</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="container"><hr class="neon-hr"></div>
+
+    <section class="container py-5" id="roi">
+        <h2 class="font-tech fw-bold mb-5 text-center text-md-start"><span class="text-info">//</span> THE BUSINESS ROI: AUTOMATION AS A PROFIT CENTER</h2>
+        <p class="text-white-50 text-center mb-5 fs-5">My systems don't just design parts; they eliminate costly bottlenecks, protect valuable assets, and accelerate your time-to-market. This is how engineering logic translates directly to financial gain.</p>
+        
+        <div class="row g-4 mb-5">
+            <div class="col-md-4">
+                <div class="roi-card p-4 text-center h-100">
+                    <div class="mb-3"><i class="fa-solid fa-clock-rotate-left fa-2x text-info"></i></div>
+                    <div class="roi-metric">90%+</div>
+                    <div class="roi-metric-desc mb-3">Labor Cost Reduction</div>
+                    <p class="small text-white-50">Automates a 3-hour manual design task into a 20-second generation, freeing senior engineers for high-value innovation.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="roi-card p-4 text-center h-100">
+                    <div class="mb-3"><i class="fa-solid fa-shield-halved fa-2x text-info"></i></div>
+                    <div class="roi-metric">$5,000+</div>
+                    <div class="roi-metric-desc mb-3">Risk Elimination</div>
+                    <p class="small text-white-50">Hard-coded DFM rules prevent CNC tool crashes and failed 3D prints, saving thousands in machine repair and material scrap.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="roi-card p-4 text-center h-100">
+                    <div class="mb-3"><i class="fa-solid fa-rocket fa-2x text-info"></i></div>
+                    <div class="roi-metric">24-48hr</div>
+                    <div class="roi-metric-desc mb-3">To Instant Quoting</div>
+                    <p class="small text-white-50">Empowers sales teams to generate perfect, cost-estimated designs in real-time, closing deals faster than the competition.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="glass-card p-4 p-md-5">
+            <h3 class="font-tech fw-bold mb-4 text-center text-md-start">From Cost Center to Competitive Weapon</h3>
+            <div class="row align-items-center">
+                <div class="col-md-6">
+                    <p class="text-white-50 mb-3"><strong class="text-info">Before:</strong> The engineering department is a reactive cost center, bogged down by repetitive drafting and manual file repairs. Every custom request is a bottleneck.</p>
+                    <p class="text-white-50"><strong class="text-info">After:</strong> The engineering department becomes a proactive profit driver. My automation platform turns your CAD/CAM software into a rapid-response quoting and production tool, making customization a core strength, not a liability.</p>
+                </div>
+                <div class="col-md-6 text-center">
+                    <img src="https://images.unsplash.com/photo-1559028006-448665bd7c7f?auto=format&fit=crop&w=800&q=80" class="img-fluid rounded border border-secondary" alt="Modern Manufacturing Floor">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="container"><hr class="neon-hr"></div>
+
+    <section class="container py-5" id="contact">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="glass-card p-5 text-center">
+                    <h2 class="font-tech fw-bold mb-3">Automate Your Design-To-Manufacturing Pipeline</h2>
+                    <p class="text-white-50 mb-4">
+                        Tired of manual, repetitive CAD edits? Let’s deploy unbreakable Python algorithms into your factory setup to decrease drafting overhead.
+                    </p>
+                    <div class="d-flex flex-column flex-md-row justify-content-center gap-3">
+                        <a href="mailto:your-email@work.com" class="btn btn-cyan px-4 py-2"><i class="fa-solid fa-envelope me-2"></i> Acquire System Audit</a>
+                        <a href="https://linkedin.com" class="btn btn-outline-cyan px-4 py-2"><i class="fa-brands fa-linkedin me-2"></i> Connect with the Architect</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="py-4 mt-5 border-top border-secondary">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-md-6 text-center text-md-start small text-white-50">
+                    © 2026 Khan Imran | Generative System Architect.
+                </div>
+                <div class="col-md-6 text-center text-md-end">
+                    <span class="font-tech small text-white">Logic over pixels. Value over hours.</span>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Add active class to nav link on scroll
+        document.addEventListener('DOMContentLoaded', function () {
+            const sections = document.querySelectorAll('section[id]');
+            const navLinks = document.querySelectorAll('.navbar-nav .nav-link');
+
+            window.addEventListener('scroll', () => {
+                let current = '';
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop;
+                    const sectionHeight = section.clientHeight;
+                    if (scrollY >= (sectionTop - 200)) {
+                        current = section.getAttribute('id');
+                    }
+                });
+
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href').slice(1) === current) {
+                        link.classList.add('active');
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

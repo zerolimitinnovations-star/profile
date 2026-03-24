@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Case Study: Automated Fixture Generation | Khan Imran</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Plus+Jakarta+Sans:wght@300;400;600&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --bg-primary: #040811;
+            --bg-secondary: #0b1323;
+            --accent-cyan: #00f0ff;
+            --accent-blue: #0077ff;
+            --text-main: #ffffff;
+            --text-muted: #8a99a8;
+            --border-color: rgba(0, 240, 255, 0.15);
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--bg-primary);
+            color: var(--text-main);
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            overflow-x: hidden;
+        }
+
+        /* ========================= */
+        /* === NAVBAR STYLES === */
+        /* ========================= */
+        .navbar {
+            background-color: rgba(4, 8, 17, 0.85) !important;
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border-color);
+            transition: all 0.3s ease;
+            padding-top: 0.75rem;
+            padding-bottom: 0.75rem;
+        }
+
+        .navbar-brand {
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 700;
+            letter-spacing: 1px;
+            color: var(--text-main) !important;
+        }
+
+        .navbar-brand i {
+            color: var(--accent-cyan);
+        }
+
+        .navbar-nav .nav-link {
+            color: var(--text-muted) !important;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-weight: 500;
+            margin: 0 0.75rem;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .navbar-nav .nav-link:hover, .navbar-nav .nav-link.active {
+            color: var(--accent-cyan) !important;
+        }
+        
+        .navbar-nav .nav-link.active::after {
+            content: '';
+            position: absolute;
+            bottom: -10px; /* Aligns with the navbar border */
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background-color: var(--accent-cyan);
+        }
+
+        .dropdown-menu {
+            background-color: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+        }
+
+        .dropdown-item {
+            color: var(--text-muted);
+            transition: all 0.2s ease;
+        }
+
+        .dropdown-item:hover {
+            background-color: var(--bg-primary);
+            color: var(--accent-cyan);
+        }
+
+        .navbar-toggler {
+            border: 1px solid var(--border-color);
+        }
+
+        .navbar-toggler-icon {
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%280, 240, 255, 0.75%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+        }
+
+        /* ========================= */
+        /* === EXISTING STYLES === */
+        /* ========================= */
+        .font-tech { font-family: 'Orbitron', sans-serif; letter-spacing: 1px; }
+        .font-code { font-family: 'JetBrains Mono', monospace; }
+
+        .glass-card {
+            background-color: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+        .glass-card:hover {
+            border-color: var(--accent-cyan);
+            box-shadow: 0 0 15px rgba(0, 240, 255, 0.1);
+            transform: translateY(-3px);
+        }
+
+        .hero-banner {
+            background: linear-gradient(rgba(4, 8, 17, 0.85), rgba(4, 8, 17, 1)), 
+                        url('https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=1920&q=80');
+            background-size: cover;
+            background-position: center;
+            min-height: 60vh;
+            margin-top: -76px; /* Pulls hero up under the transparent navbar */
+            padding-top: 76px; /* Adds padding back so content isn't hidden */
+            display: flex;
+            align-items: center;
+        }
+
+        .btn-cyan {
+            background-color: var(--accent-cyan);
+            color: #000;
+            font-weight: 600;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+        .btn-cyan:hover {
+            background-color: #00c3cf;
+            box-shadow: 0 0 15px var(--accent-cyan);
+            color: #000;
+        }
+        .btn-outline-cyan {
+            border: 1px solid var(--accent-cyan);
+            color: var(--accent-cyan);
+            border-radius: 4px;
+        }
+        .btn-outline-cyan:hover {
+            background-color: var(--accent-cyan);
+            color: #000;
+        }
+
+        .metric-badge {
+            font-size: 0.8rem;
+            border: 1px solid rgba(255,255,255,0.1);
+            padding: 5px 12px;
+            border-radius: 20px;
+            background: rgba(255,255,255,0.02);
+            color: var(--text-muted);
+        }
+
+        .code-block {
+            background: #02040a;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            font-size: 0.85rem;
+            padding: 1.5rem;
+            color: #a9b7c6;
+            max-height: 350px;
+            overflow-y: auto;
+        }
+
+        hr.neon-hr {
+            border-top: 1px solid var(--border-color);
+            opacity: 1;
+        }
+        
+        /* Case Study Specific Styles */
+        .case-study-toc {
+            position: sticky;
+            top: 100px;
+        }
+        .case-study-toc .nav-link {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            padding: 0.25rem 0;
+            border-left: 2px solid transparent;
+            padding-left: 1rem;
+            transition: all 0.3s ease;
+        }
+        .case-study-toc .nav-link:hover, .case-study-toc .nav-link.active {
+            color: var(--accent-cyan);
+            border-left-color: var(--accent-cyan);
+            background: none;
+        }
+        .result-metric {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--accent-cyan);
+            font-family: 'Orbitron', sans-serif;
+        }
+        .result-metric-desc {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+        .image-gallery img {
+            border-radius: 4px;
+            border: 1px solid var(--border-color);
+            transition: transform 0.3s ease;
+        }
+        .image-gallery img:hover {
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ================================================================= -->
+    <!-- === NAVIGATION BAR === -->
+    <!-- ================================================================= -->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <i class="fa-solid fa-layer-group me-2"></i> GSA
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="index.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="services.html">Services</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="projects.html">Projects</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="case-studies.html">Case Studies</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="about.html">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="contact.html">Contact</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            More
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="https://www.linkedin.com/in/khanimran-prime/" target="_blank"><i class="fa-brands fa-linkedin me-2"></i>LinkedIn</a></li>
+                            <li><a class="dropdown-item" href="https://github.com/yourprofile" target="_blank"><i class="fa-brands fa-github me-2"></i>GitHub</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="/path/to/your/resume.pdf" target="_blank"><i class="fa-solid fa-file-pdf me-2"></i>Download Resume</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <!-- ================================================================= -->
+    <!-- === END OF NAVBAR === -->
+    <!-- ================================================================= -->
+
+    <section class="hero-banner" id="cs-hero">
+        <div class="container text-center">
+            <span class="metric-badge mb-3 d-inline-block">Case Study</span>
+            <h1 class="font-tech fw-bold display-4 mb-3">Automated CNC Fixture Generation</h1>
+            <p class="fs-5 text-white-50 lh-lg mb-4 col-lg-8 mx-auto">
+                How a custom Python API script for SolidWorks reduced fixture design time from 4 hours to 3 minutes, eliminating a critical production bottleneck.
+            </p>
+        </div>
+    </section>
+
+    <section class="container py-5">
+        <div class="row">
+            <!-- Table of Contents -->
+            <div class="col-lg-3 order-2 order-lg-1">
+                <div class="case-study-toc">
+                    <h5 class="font-tech text-info mb-3">REPORT SECTIONS</h5>
+                    <nav class="nav flex-column">
+                        <a class="nav-link" href="#overview">Overview</a>
+                        <a class="nav-link" href="#challenge">The Challenge</a>
+                        <a class="nav-link" href="#solution">The Solution</a>
+                        <a class="nav-link" href="#implementation">Implementation</a>
+                        <a class="nav-link" href="#results">Results</a>
+                        <a class="nav-link" href="#conclusion">Conclusion</a>
+                    </nav>
+                </div>
+            </div>
+
+            <!-- Main Content -->
+            <div class="col-lg-9 order-1 order-lg-2">
+                <section id="overview" class="mb-5">
+                    <h2 class="font-tech fw-bold mb-3"><span class="text-info">//</span> Project Overview</h2>
+                    <div class="glass-card p-4">
+                        <div class="row g-4">
+                            <div class="col-md-4">
+                                <strong>Client:</strong> Precision Machining Inc.
+                            </div>
+                            <div class="col-md-4">
+                                <strong>Industry:</strong> Aerospace Components
+                            </div>
+                            <div class="col-md-4">
+                                <strong>Duration:</strong> 3 Weeks
+                            </div>
+                        </div>
+                        <hr class="neon-hr my-3">
+                        <p class="text-white-50 mb-0">
+                            The client faced a recurring bottleneck in their low-volume, high-mix production line. Each new unique part required a custom CNC machining fixture to be designed and fabricated, a manual process that took a design engineer 4-6 hours per fixture. This project aimed to develop a generative system to automate this entire workflow.
+                        </p>
+                    </div>
+                </section>
+
+                <section id="challenge" class="mb-5">
+                    <h2 class="font-tech fw-bold mb-3"><span class="text-info">//</span> The Challenge: A Manual Bottleneck</h2>
+                    <p class="text-white-50 mb-4">
+                        The existing process was entirely manual and prone to several critical issues:
+                    </p>
+                    <ul class="text-white-50">
+                        <li><strong>Time Consumption:</strong> 4-6 hours of senior engineering time per fixture, delaying production starts.</li>
+                        <li><strong>Human Error:</strong> Manual modeling led to occasional inaccuracies in clamp placement or hole alignment, causing machine crashes or scrap parts.</li>
+                        <li><strong>Inconsistency:</strong> Each fixture was a new design, leading to a lack of standardization and a steep learning curve for machine operators.</li>
+                        <li><strong>Scalability:</strong> The process could not scale with an increasing number of unique part orders.</li>
+                    </ul>
+                </section>
+
+                <section id="solution" class="mb-5">
+                    <h2 class="font-tech fw-bold mb-3"><span class="text-info">//</span> The Solution: A Generative System</h2>
+                    <p class="text-white-50 mb-4">
+                        I designed and developed a Python script that interfaces directly with the SolidWorks API. The system operates on a simple logic:
+                    </p>
+                    <ol class="text-white-50">
+                        <li><strong>Input:</strong> The user provides the finished part model (STEP or SLDPRT).</li>
+                        <li><strong>Analysis:</strong> The script automatically analyzes the part's geometry to find the primary base plane and overall bounding box dimensions.</li>
+                        <li><strong>Generation:</strong> It then procedurally generates a fixture base plate with intelligently positioned clamp points, mounting holes, and part locators based on the part's geometry.</li>
+                        <li><strong>Output:</strong> The final, fully-featured fixture assembly is created in SolidWorks, ready for drawing export and CAM programming.
+                        </li>
+                    </ol>
+                    <div class="code-block">
+                        <span style="color: #cc7832;">def</span> <span style="color: #ffc66d;">generate_fixture</span>(part_model):
+                            <span style="color: #808080;"># Analyze part geometry</span>
+                            base_plane = find_largest_flat_surface(part_model)
+                            dims = get_bounding_box(part_model)
+                            
+                            <span style="color: #808080;"># Generate base plate</span>
+                            plate = create_base_plate(dims.x + <span style="color: #6897bb;">50</span>, dims.y + <span style="color: #6897bb;">50</span>, <span style="color: #6897bb;">20</span>)
+                            
+                            <span style="color: #808080;"># Add features based on logic</span>
+                            add_clamp_points(plate, base_plane)
+                            add_mounting_holes(plate)
+                            add_part_locators(plate, part_model)
+                            
+                            <span style="color: #cc7832;">return</span> plate
+                    </div>
+                </section>
+
+                <section id="implementation" class="mb-5">
+                    <h2 class="font-tech fw-bold mb-3"><span class="text-info">//</span> Implementation & Visuals</h2>
+                    <p class="text-white-50 mb-4">
+                        The script was deployed as a macro within the client's SolidWorks environment. A simple user interface prompts the engineer to select the part file and define a few key parameters, after which the generation is fully automated.
+                    </p>
+                    <div class="image-gallery row g-3">
+                        <div class="col-md-6">
+                            <img src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=600&q=80" class="img-fluid" alt="Part model input">
+                            <p class="text-center text-muted small mt-2">1. Original Part Model (Input)</p>
+                        </div>
+                        <div class="col-md-6">
+                            <img src="https://images.unsplash.com/photo-1566438480900-0609be27a4be?auto=format&fit=crop&w=600&q=80" class="img-fluid" alt="Generated fixture assembly">
+                            <p class="text-center text-muted small mt-2">2. Generated Fixture Assembly (Output)</p>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="results" class="mb-5">
+                    <h2 class="font-tech fw-bold mb-3"><span class="text-info">//</span> Quantifiable Results</h2>
+                    <p class="text-white-50 mb-4">
+                        The impact of the system was immediate and significant, delivering a clear return on investment.
+                    </p>
+                    <div class="row g-4 text-center">
+                        <div class="col-md-4">
+                            <div class="glass-card p-4 h-100">
+                                <div class="result-metric">98%</div>
+                                <div class="result-metric-desc">Reduction in Design Time</div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="glass-card p-4 h-100">
+                                <div class="result-metric">100%</div>
+                                <div class="result-metric-desc">Elimination of Human Error</div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="glass-card p-4 h-100">
+                                <div class="result-metric">80%</div>
+                                <div class="result-metric-desc">Faster Production Start</div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="conclusion" class="mb-5">
+                    <h2 class="font-tech fw-bold mb-3"><span class="text-info">//</span> Conclusion</h2>
+                    <p class="text-white-50 mb-4">
+                        This project demonstrates the power of applying generative automation to traditional manufacturing challenges. By abstracting the logic of fixture design into a reusable system, we not only solved an immediate bottleneck but also created a scalable asset that will provide value for years to come. The client's engineering team is now free to focus on higher-value tasks, and their production line is more agile and reliable than ever.
+                    </p>
+                    <div class="d-flex gap-3">
+                        <a href="projects.html" class="btn btn-outline-cyan"><i class="fa-solid fa-arrow-left me-2"></i>Back to Projects</a>
+                        <a href="contact.html" class="btn btn-cyan">Discuss a Similar Solution<i class="fa-solid fa-arrow-right ms-2"></i></a>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </section>
+
+    <footer class="py-4 mt-5 border-top border-secondary">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-md-6 text-center text-md-start small text-white-50">
+                    © 2026 Khan Imran | Generative System Architect.
+                </div>
+                <div class="col-md-6 text-center text-md-end">
+                    <span class="font-tech small text-white">Logic over pixels. Value over hours.</span>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Add active class to nav link on scroll
+        document.addEventListener('DOMContentLoaded', function () {
+            const sections = document.querySelectorAll('section[id]');
+            const navLinks = document.querySelectorAll('.navbar-nav .nav-link');
+
+            window.addEventListener('scroll', () => {
+                let current = '';
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop;
+                    const sectionHeight = section.clientHeight;
+                    if (scrollY >= (sectionTop - 200)) {
+                        current = section.getAttribute('id');
+                    }
+                });
+
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href').slice(1) === current) {
+                        link.classList.add('active');
+                    }
+                });
+            });
+
+            // Smooth scroll for ToC links
+            document.querySelectorAll('.case-study-toc .nav-link').forEach(link => {
+                link.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    const targetSection = document.querySelector(targetId);
+                    if(targetSection) {
+                        targetSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

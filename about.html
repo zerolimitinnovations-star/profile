@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About | Khan Imran - Generative System Architect</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Plus+Jakarta+Sans:wght@300;400;600&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --bg-primary: #040811;
+            --bg-secondary: #0b1323;
+            --accent-cyan: #00f0ff;
+            --accent-blue: #0077ff;
+            --text-main: #ffffff;
+            --text-muted: #8a99a8;
+            --border-color: rgba(0, 240, 255, 0.15);
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--bg-primary);
+            color: var(--text-main);
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            overflow-x: hidden;
+        }
+
+        /* ========================= */
+        /* === NAVBAR STYLES === */
+        /* ========================= */
+        .navbar {
+            background-color: rgba(4, 8, 17, 0.85) !important;
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border-color);
+            transition: all 0.3s ease;
+            padding-top: 0.75rem;
+            padding-bottom: 0.75rem;
+        }
+
+        .navbar-brand {
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 700;
+            letter-spacing: 1px;
+            color: var(--text-main) !important;
+        }
+
+        .navbar-brand i {
+            color: var(--accent-cyan);
+        }
+
+        .navbar-nav .nav-link {
+            color: var(--text-muted) !important;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-weight: 500;
+            margin: 0 0.75rem;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .navbar-nav .nav-link:hover, .navbar-nav .nav-link.active {
+            color: var(--accent-cyan) !important;
+        }
+        
+        .navbar-nav .nav-link.active::after {
+            content: '';
+            position: absolute;
+            bottom: -10px; /* Aligns with the navbar border */
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background-color: var(--accent-cyan);
+        }
+
+        .dropdown-menu {
+            background-color: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+        }
+
+        .dropdown-item {
+            color: var(--text-muted);
+            transition: all 0.2s ease;
+        }
+
+        .dropdown-item:hover {
+            background-color: var(--bg-primary);
+            color: var(--accent-cyan);
+        }
+
+        .navbar-toggler {
+            border: 1px solid var(--border-color);
+        }
+
+        .navbar-toggler-icon {
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%280, 240, 255, 0.75%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+        }
+
+        /* ========================= */
+        /* === EXISTING STYLES === */
+        /* ========================= */
+        .font-tech { font-family: 'Orbitron', sans-serif; letter-spacing: 1px; }
+        .font-code { font-family: 'JetBrains Mono', monospace; }
+
+        .glass-card {
+            background-color: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+        .glass-card:hover {
+            border-color: var(--accent-cyan);
+            box-shadow: 0 0 15px rgba(0, 240, 255, 0.1);
+            transform: translateY(-3px);
+        }
+
+        .hero-banner {
+            background: linear-gradient(rgba(4, 8, 17, 0.85), rgba(4, 8, 17, 1)), 
+                        url('https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=1920&q=80');
+            background-size: cover;
+            background-position: center;
+            min-height: 60vh;
+            margin-top: -76px; /* Pulls hero up under the transparent navbar */
+            padding-top: 76px; /* Adds padding back so content isn't hidden */
+            display: flex;
+            align-items: center;
+        }
+
+        .btn-cyan {
+            background-color: var(--accent-cyan);
+            color: #000;
+            font-weight: 600;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+        .btn-cyan:hover {
+            background-color: #00c3cf;
+            box-shadow: 0 0 15px var(--accent-cyan);
+            color: #000;
+        }
+        .btn-outline-cyan {
+            border: 1px solid var(--accent-cyan);
+            color: var(--accent-cyan);
+            border-radius: 4px;
+        }
+        .btn-outline-cyan:hover {
+            background-color: var(--accent-cyan);
+            color: #000;
+        }
+
+        .metric-badge {
+            font-size: 0.8rem;
+            border: 1px solid rgba(255,255,255,0.1);
+            padding: 5px 12px;
+            border-radius: 20px;
+            background: rgba(255,255,255,0.02);
+            color: var(--text-muted);
+        }
+
+        .code-block {
+            background: #02040a;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            font-size: 0.85rem;
+            padding: 1.5rem;
+            color: #a9b7c6;
+            max-height: 350px;
+            overflow-y: auto;
+        }
+
+        .table-custom {
+            color: var(--text-main);
+            border-color: var(--border-color);
+        }
+        .table-custom th { color: var(--accent-cyan); font-family: 'Orbitron', sans-serif; font-size: 0.8rem;}
+
+        hr.neon-hr {
+            border-top: 1px solid var(--border-color);
+            opacity: 1;
+        }
+        
+        /* About Page Specific Styles */
+        .philosophy-icon {
+            font-size: 3rem;
+            color: var(--accent-cyan);
+            opacity: 0.8;
+        }
+        .skill-list li {
+            background: rgba(0, 240, 255, 0.05);
+            border-left: 3px solid var(--accent-cyan);
+            padding: 10px 15px;
+            margin-bottom: 10px;
+            transition: all 0.3s ease;
+        }
+        .skill-list li:hover {
+            background: rgba(0, 240, 255, 0.1);
+            transform: translateX(5px);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ================================================================= -->
+    <!-- === NAVIGATION BAR === -->
+    <!-- ================================================================= -->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <i class="fa-solid fa-layer-group me-2"></i> GSA
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="index.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="services.html">Services</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="projects.html">Projects</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="case-studies.html">Case Studies</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="about.html">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="contact.html">Contact</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            More
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="https://www.linkedin.com/in/khanimran-prime/" target="_blank"><i class="fa-brands fa-linkedin me-2"></i>LinkedIn</a></li>
+                            <li><a class="dropdown-item" href="https://github.com/yourprofile" target="_blank"><i class="fa-brands fa-github me-2"></i>GitHub</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="/path/to/your/resume.pdf" target="_blank"><i class="fa-solid fa-file-pdf me-2"></i>Download Resume</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <!-- ================================================================= -->
+    <!-- === END OF NAVBAR === -->
+    <!-- ================================================================= -->
+
+    <section class="hero-banner" id="about-hero">
+        <div class="container text-center">
+            <span class="metric-badge mb-3 d-inline-block">System Architecture | Manufacturing Logic</span>
+            <h1 class="font-tech fw-bold display-4 mb-3">THE ARCHITECT'S BLUEPRINT</h1>
+            <p class="fs-5 text-white-50 lh-lg mb-4 col-lg-8 mx-auto">
+                I don't just model parts. I design the underlying logic and systems that bridge the gap between a digital concept and a physical, manufacturable reality. This is my architecture.
+            </p>
+            <div class="d-flex gap-3 justify-content-center">
+                <a href="#philosophy" class="btn btn-cyan px-4 py-2">Explore the System</a>
+                <a href="#skills" class="btn btn-outline-cyan px-4 py-2">View Technical Stack</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="container py-5" id="philosophy">
+        <h2 class="font-tech fw-bold mb-5 text-center text-md-start"><span class="text-info">//</span> CORE ARCHITECTURAL PHILOSOPHY</h2>
+        <p class="text-white-50 text-center mb-5 fs-5">My approach is built on three foundational pillars. Each one ensures that the final output is not just a design, but a robust, manufacturable, and profitable asset.</p>
+        
+        <div class="row g-5">
+            <div class="col-lg-4 text-center">
+                <div class="glass-card h-100 p-4">
+                    <div class="philosophy-icon mb-3"><i class="fa-solid fa-gear"></i></div>
+                    <h5 class="font-tech mb-3">Design for Manufacturing (DFM)</h5>
+                    <p class="text-white-50 small">A perfect 3D model is useless if it can't be made. My foundation is in understanding the physical constraints of both additive (3D printing) and subtractive (CNC) processes. I design with tolerances, wall thicknesses, and tool clearances as primary parameters, not afterthoughts.</p>
+                </div>
+            </div>
+            <div class="col-lg-4 text-center">
+                <div class="glass-card h-100 p-4">
+                    <div class="philosophy-icon mb-3"><i class="fa-solid fa-code"></i></div>
+                    <h5 class="font-tech mb-3">Generative Automation</h5>
+                    <p class="text-white-50 small">Repetitive manual tasks are the enemy of efficiency. I leverage Python APIs for SolidWorks and Fusion 360 to build intelligent scripts that automate geometry generation, file preparation, and feature recognition. This turns hours of manual work into seconds of computation.</p>
+                </div>
+            </div>
+            <div class="col-lg-4 text-center">
+                <div class="glass-card h-100 p-4">
+                    <div class="philosophy-icon mb-3"><i class="fa-solid fa-chart-line"></i></div>
+                    <h5 class="font-tech mb-3">Business-Driven Engineering</h5>
+                    <p class="text-white-50 small">Every technical decision must serve a business outcome: reducing costs, speeding up time-to-market, or eliminating errors. I quantify my work in ROI—saving hours of labor, reducing material waste, and preventing costly machine crashes.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="container"><hr class="neon-hr"></div>
+
+    <section class="container py-5" id="skills">
+        <h2 class="font-tech fw-bold mb-5 text-center text-md-start"><span class="text-info">//</span> THE SYSTEM ARCHITECTURE: TECHNICAL STACK</h2>
+        <p class="text-white-50 text-center mb-5 fs-5">A multi-layered competency in CAD, Manufacturing Science, and Software Development. This is the technical framework that enables my automation systems.</p>
+        
+        <div class="row g-4">
+            <div class="col-lg-4">
+                <div class="glass-card h-100 p-4">
+                    <h4 class="font-tech text-info mb-4"><i class="fa-solid fa-cube me-2"></i>CAD & Design</h4>
+                    <ul class="skill-list list-unstyled">
+                        <li>SolidWorks (Expert Level)</li>
+                        <li>Parametric Modeling & Assemblies</li>
+                        <li>Rhino / Grasshopper</li>
+                        <li>Fusion 360</li>
+                        <li>Technical Drawings & GD&T</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="glass-card h-100 p-4">
+                    <h4 class="font-tech text-info mb-4"><i class="fa-solid fa-industry me-2"></i>Manufacturing & DFM</h4>
+                    <ul class="skill-list list-unstyled">
+                        <li>Design for Additive Manufacturing (DFAM)</li>
+                        <li>FDM, SLA, SLS Process Knowledge</li>
+                        <li>CNC Milling & Turning Fundamentals</li>
+                        <li>Toolpath & G-code Logic</li>
+                        <li>Material Science (Plastics & Metals)</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="glass-card h-100 p-4">
+                    <h4 class="font-tech text-info mb-4"><i class="fa-solid fa-terminal me-2"></i>Automation & Development</h4>
+                    <ul class="skill-list list-unstyled">
+                        <li>Python (API Scripting)</li>
+                        <li>SolidWorks API</li>
+                        <li>Fusion 360 API (Design & CAM)</li>
+                        <li>Generative Algorithm Design</li>
+                        <li>File Format Conversion (STEP, STL, 3MF)</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="container"><hr class="neon-hr"></div>
+
+    <section class="container py-5" id="cta">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="glass-card p-5 text-center">
+                    <h2 class="font-tech fw-bold mb-3">Let's Build a Robust System Together</h2>
+                    <p class="text-white-50 mb-4">
+                        If your engineering team is bottlenecked by manual CAD prep, repetitive design changes, or the transition from prototype to production, let's talk. I provide the architectural logic to make your manufacturing workflow faster, more reliable, and more profitable.
+                    </p>
+                    <div class="d-flex flex-column flex-md-row justify-content-center gap-3">
+                        <a href="mailto:your-email@work.com" class="btn btn-cyan px-4 py-2"><i class="fa-solid fa-envelope me-2"></i>Start a Conversation</a>
+                        <a href="index.html#contact" class="btn btn-outline-cyan px-4 py-2"><i class="fa-solid fa-user-tie me-2"></i>View Consultation Options</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="py-4 mt-5 border-top border-secondary">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-md-6 text-center text-md-start small text-white-50">
+                    © 2026 Khan Imran | Generative System Architect.
+                </div>
+                <div class="col-md-6 text-center text-md-end">
+                    <span class="font-tech small text-white">Logic over pixels. Value over hours.</span>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Add active class to nav link on scroll
+        document.addEventListener('DOMContentLoaded', function () {
+            const sections = document.querySelectorAll('section[id]');
+            const navLinks = document.querySelectorAll('.navbar-nav .nav-link');
+
+            window.addEventListener('scroll', () => {
+                let current = '';
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop;
+                    const sectionHeight = section.clientHeight;
+                    if (scrollY >= (sectionTop - 200)) {
+                        current = section.getAttribute('id');
+                    }
+                });
+
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href').slice(1) === current) {
+                        link.classList.add('active');
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
