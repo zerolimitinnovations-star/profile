@@ -72,7 +72,7 @@
                         url('https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=1920&q=80');
             background-size: cover;
             background-position: center;
-            padding-top: 60px; /* Normal padding */
+            padding-top: 60px;
             padding-bottom: 60px;
         }
 
@@ -131,41 +131,245 @@
             display: inline-block;
             margin-bottom: 5px;
         }
-        
+
+        /* --- Project Card Styles --- */
+        .project-card {
+            background-color: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .project-card:hover {
+            border-color: var(--accent-cyan);
+            box-shadow: 0 0 20px rgba(0, 240, 255, 0.15);
+            transform: translateY(-5px);
+        }
+
+        .project-image-container {
+            position: relative;
+            overflow: hidden;
+            height: 250px;
+        }
+
         .project-image {
-            border-radius: 4px;
-            border: 1px solid var(--border-color);
+            position: absolute;
+            top: 0;
+            left: 0;
             width: 100%;
-            height: auto;
+            height: 100%;
+            object-fit: cover;
+            transition: opacity 0.5s ease, transform 0.5s ease;
         }
 
-        .gallery-image {
-            border-radius: 4px;
-            border: 1px solid var(--border-color);
-            cursor: pointer;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        .project-image.front {
+            z-index: 2;
         }
-        .gallery-image:hover {
+
+        .project-image.back {
+            z-index: 1;
+            opacity: 0;
+        }
+
+        .project-card:hover .project-image.front {
+            opacity: 0;
+            transform: scale(1.1);
+        }
+
+        .project-card:hover .project-image.back {
+            opacity: 1;
             transform: scale(1.05);
-            box-shadow: 0 0 20px rgba(0, 240, 255, 0.3);
         }
 
-        .project-scope-list {
+        .project-content {
+            padding: 1.5rem;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .project-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--accent-cyan);
+            margin-bottom: 0.5rem;
+        }
+
+        .project-category {
+            color: var(--text-muted);
+            font-size: 0.875rem;
+            margin-bottom: 1rem;
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            background-color: rgba(0, 240, 255, 0.1);
+            border-radius: 15px;
+        }
+
+        .project-description {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin-bottom: 1rem;
+            flex-grow: 1;
+        }
+
+        .project-tech {
+            margin-bottom: 1rem;
+        }
+
+        .project-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: auto;
+        }
+
+        .project-link {
+            color: var(--accent-cyan);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 600;
+            transition: color 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .project-link:hover {
+            color: var(--text-main);
+        }
+
+        /* --- Modal Styles --- */
+        .modal-content {
+            background-color: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            color: var(--text-main);
+        }
+
+        .modal-header {
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .modal-footer {
+            border-top: 1px solid var(--border-color);
+        }
+
+        .btn-close {
+            filter: invert(1);
+        }
+
+        .modal-tech-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .feature-list {
             list-style: none;
             padding-left: 0;
         }
-        .project-scope-list li {
+
+        .feature-list li {
             padding: 0.5rem 0;
             border-bottom: 1px solid rgba(255,255,255,0.05);
         }
-        .project-scope-list li:last-child {
+
+        .feature-list li:last-child {
             border-bottom: none;
         }
-        .project-scope-list li i {
+
+        .feature-list li i {
             color: var(--accent-cyan);
-            width: 20px;
+            margin-right: 0.75rem;
         }
 
+        /* --- Filter Buttons --- */
+        .filter-container {
+            margin-bottom: 2rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .filter-btn {
+            background-color: transparent;
+            border: 1px solid var(--border-color);
+            color: var(--text-muted);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .filter-btn:hover,
+        .filter-btn.active {
+            background-color: var(--accent-cyan);
+            color: var(--bg-primary);
+            border-color: var(--accent-cyan);
+        }
+
+        /* --- View Toggle --- */
+        .view-toggle {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .view-btn {
+            background-color: transparent;
+            border: 1px solid var(--border-color);
+            color: var(--text-muted);
+            padding: 0.5rem;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .view-btn:hover,
+        .view-btn.active {
+            background-color: var(--accent-cyan);
+            color: var(--bg-primary);
+            border-color: var(--accent-cyan);
+        }
+
+        /* --- List View Styles --- */
+        .projects-container.list-view .project-card {
+            display: flex;
+            flex-direction: row;
+            height: auto;
+            min-height: 200px;
+        }
+
+        .projects-container.list-view .project-image-container {
+            width: 300px;
+            height: 200px;
+            flex-shrink: 0;
+        }
+
+        .projects-container.list-view .project-content {
+            flex: 1;
+        }
+
+        /* --- Responsive --- */
+        @media (max-width: 768px) {
+            .projects-container.list-view .project-card {
+                flex-direction: column;
+            }
+            
+            .projects-container.list-view .project-image-container {
+                width: 100%;
+                height: 250px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -173,7 +377,6 @@
     <!-- ================================================================= -->
     <!-- === SPACER FOR FIXED NAVBAR === -->
     <!-- ================================================================= -->
-    <!-- FIX: This spacer pushes all content down to prevent overlap with the fixed navbar. -->
     <div style="height: 76px;"></div>
 
     <!-- ================================================================= -->
@@ -190,13 +393,13 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
-                        <a class="nav-link active" href="index.html">Home</a>
+                        <a class="nav-link" href="index.html">Home</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="services.html">Services</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="projects.html">Projects</a>
+                        <a class="nav-link active" href="projects.html">Projects</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="case-studies.html">Case Studies</a>
@@ -237,7 +440,7 @@
         <!-- Tab Navigation -->
         <ul class="nav nav-tabs" id="projectTabs" role="tablist">
             <li class="nav-item" role="presentation">
-                <button class="nav-link" id="tab-3d-design" data-bs-toggle="tab" data-bs-target="#content-3d-design" type="button" role="tab" aria-controls="content-3d-design" aria-selected="false"><i class="fa-solid fa-cube me-2"></i>CAD for 3D Printing</button>
+                <button class="nav-link active" id="tab-3d-design" data-bs-toggle="tab" data-bs-target="#content-3d-design" type="button" role="tab" aria-controls="content-3d-design" aria-selected="false"><i class="fa-solid fa-cube me-2"></i>CAD for 3D Printing</button>
             </li>
             <li class="nav-item" role="presentation">
                 <button class="nav-link" id="tab-dfm" data-bs-toggle="tab" data-bs-target="#content-dfm" type="button" role="tab" aria-controls="content-dfm" aria-selected="false"><i class="fa-solid fa-magnifying-glass me-2"></i>DFM Analysis</button>
@@ -246,7 +449,7 @@
                 <button class="nav-link" id="tab-cnc-design" data-bs-toggle="tab" data-bs-target="#content-cnc-design" type="button" role="tab" aria-controls="content-cnc-design" aria-selected="false"><i class="fa-solid fa-gear me-2"></i>CAD for CNC</button>
             </li>
             <li class="nav-item" role="presentation">
-                <button class="nav-link active" id="tab-python-automation" data-bs-toggle="tab" data-bs-target="#content-python-automation" type="button" role="tab" aria-controls="content-python-automation" aria-selected="true"><i class="fa-solid fa-code me-2"></i>Python Automation</button>
+                <button class="nav-link" id="tab-python-automation" data-bs-toggle="tab" data-bs-target="#content-python-automation" type="button" role="tab" aria-controls="content-python-automation" aria-selected="true"><i class="fa-solid fa-code me-2"></i>Python Automation</button>
             </li>
         </ul>
 
@@ -254,24 +457,104 @@
         <div class="tab-content" id="projectTabContent">
             
             <!-- CAD for 3D Printing Tab -->
-            <div class="tab-pane fade" id="content-3d-design" role="tabpanel" aria-labelledby="tab-3d-design">
-                <div class="row g-4">
-                    <div class="col-lg-6">
-                        <img src="https://images.unsplash.com/photo-1581092160562-40aa08e78837?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" class="project-image" alt="3D Printed Drone Frame">
+            <div class="tab-pane fade show active" id="content-3d-design" role="tabpanel" aria-labelledby="tab-3d-design">
+                <div class="position-relative">
+                    <div class="view-toggle">
+                        <button class="view-btn active" data-view="grid" title="Grid View">
+                            <i class="fas fa-th"></i>
+                        </button>
+                        <button class="view-btn" data-view="list" title="List View">
+                            <i class="fas fa-list"></i>
+                        </button>
                     </div>
-                    <div class="col-lg-6">
-                        <h3 class="font-tech fw-bold mb-3">Optimizing for Additive Manufacturing</h3>
-                        <p class="text-white-50">My design process for 3D printing is rooted in material science and the physics of layer-by-layer fabrication. I engineer models for printability, strength, and efficiency.</p>
-                        <ul class="project-scope-list text-white-50">
-                            <li><i class="fa-solid fa-check-circle me-2"></i>Orientation & Support Strategy Analysis</li>
-                            <li><i class="fa-solid fa-check-circle me-2"></i>Wall Thickness & Infill Optimization</li>
-                            <li><i class="fa-solid fa-check-circle me-2"></i>Overhang & Bridging Geometry Correction</li>
-                            <li><i class="fa-solid fa-check-circle me-2"></i>Final, Print-Ready STL/3MF Files</li>
-                        </ul>
-                        <div class="mt-4">
-                            <span class="tech-badge">Fusion 360</span>
-                            <span class="tech-badge">SolidWorks</span>
-                            <span class="tech-badge">Cura</span>
+                    
+                    <div class="filter-container">
+                        <button class="filter-btn active" data-filter="all">All Projects</button>
+                        <button class="filter-btn" data-filter="prototypes">Prototypes</button>
+                        <button class="filter-btn" data-filter="production">Production</button>
+                        <button class="filter-btn" data-filter="custom">Custom Parts</button>
+                    </div>
+
+                    <div class="row g-4 projects-container" id="projects-3d">
+                        <!-- Project Card 1 -->
+                        <div class="col-lg-4 col-md-6 project-item" data-category="prototypes">
+                            <div class="project-card">
+                                <div class="project-image-container">
+                                    <img src="https://images.unsplash.com/photo-1581092160562-40aa08e78837?q=80&w=600&auto=format&fit=crop" class="project-image front" alt="Drone Frame Front">
+                                    <img src="https://images.unsplash.com/photo-1603732551681-2e91159b9dc2?q=80&w=600&auto=format&fit=crop" class="project-image back" alt="Drone Frame Back">
+                                </div>
+                                <div class="project-content">
+                                    <h3 class="project-title">Carbon Fiber Drone Frame</h3>
+                                    <span class="project-category">Prototype</span>
+                                    <p class="project-description">Lightweight quadcopter frame optimized for 3D printing with carbon fiber reinforced nylon.</p>
+                                    <div class="project-tech">
+                                        <span class="tech-badge">Fusion 360</span>
+                                        <span class="tech-badge">Cura</span>
+                                    </div>
+                                    <div class="project-links">
+                                        <a href="#" class="project-link view-details" data-bs-toggle="modal" data-bs-target="#projectModal" data-project-id="1">
+                                            <i class="fas fa-eye"></i> Details
+                                        </a>
+                                        <a href="#" class="project-link">
+                                            <i class="fas fa-download"></i> STL
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Project Card 2 -->
+                        <div class="col-lg-4 col-md-6 project-item" data-category="production">
+                            <div class="project-card">
+                                <div class="project-image-container">
+                                    <img src="https://images.unsplash.com/photo-1559136555-9303baea8ebd?q=80&w=600&auto=format&fit=crop" class="project-image front" alt="Industrial Part Front">
+                                    <img src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?q=80&w=600&auto=format&fit=crop" class="project-image back" alt="Industrial Part Back">
+                                </div>
+                                <div class="project-content">
+                                    <h3 class="project-title">Industrial Gear Housing</h3>
+                                    <span class="project-category">Production</span>
+                                    <p class="project-description">Complex gear housing with internal channels for cooling, printed in metal for aerospace application.</p>
+                                    <div class="project-tech">
+                                        <span class="tech-badge">SolidWorks</span>
+                                        <span class="tech-badge">Netfabb</span>
+                                    </div>
+                                    <div class="project-links">
+                                        <a href="#" class="project-link view-details" data-bs-toggle="modal" data-bs-target="#projectModal" data-project-id="2">
+                                            <i class="fas fa-eye"></i> Details
+                                        </a>
+                                        <a href="#" class="project-link">
+                                            <i class="fas fa-download"></i> STEP
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Project Card 3 -->
+                        <div class="col-lg-4 col-md-6 project-item" data-category="custom">
+                            <div class="project-card">
+                                <div class="project-image-container">
+                                    <img src="https://plus.unsplash.com/premium_photo-1663047019075-74ca19d974ba?q=80&w=600&auto=format&fit=crop" class="project-image front" alt="Custom Enclosure Front">
+                                    <img src="https://images.unsplash.com/photo-1518432031352-d6fc5c10da5a?q=80&w=600&auto=format&fit=crop" class="project-image back" alt="Custom Enclosure Back">
+                                </div>
+                                <div class="project-content">
+                                    <h3 class="project-title">Custom Electronics Enclosure</h3>
+                                    <span class="project-category">Custom Part</span>
+                                    <p class="project-description">Waterproof enclosure for IoT devices with snap-fit design and cable management.</p>
+                                    <div class="project-tech">
+                                        <span class="tech-badge">Fusion 360</span>
+                                        <span class="tech-badge">PrusaSlicer</span>
+                                    </div>
+                                    <div class="project-links">
+                                        <a href="#" class="project-link view-details" data-bs-toggle="modal" data-bs-target="#projectModal" data-project-id="3">
+                                            <i class="fas fa-eye"></i> Details
+                                        </a>
+                                        <a href="#" class="project-link">
+                                            <i class="fas fa-download"></i> 3MF
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -279,23 +562,76 @@
 
             <!-- DFM Analysis Tab -->
             <div class="tab-pane fade" id="content-dfm" role="tabpanel" aria-labelledby="tab-dfm">
-                <div class="row g-4">
-                    <div class="col-lg-6">
-                        <img src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=800&q=80" class="project-image" alt="DFM Analysis on a metal part">
+                <div class="position-relative">
+                    <div class="view-toggle">
+                        <button class="view-btn active" data-view="grid" title="Grid View">
+                            <i class="fas fa-th"></i>
+                        </button>
+                        <button class="view-btn" data-view="list" title="List View">
+                            <i class="fas fa-list"></i>
+                        </button>
                     </div>
-                    <div class="col-lg-6">
-                        <h3 class="font-tech fw-bold mb-3">Design for Manufacturability (DFM) Audits</h3>
-                        <p class="text-white-50">A great design is useless if it can't be manufactured reliably. I provide comprehensive DFM analysis reports that identify potential failure points and cost drivers before production begins.</p>
-                        <ul class="project-scope-list text-white-50">
-                            <li><i class="fa-solid fa-check-circle me-2"></i>Multi-Manufacturing Feasibility Report</li>
-                            <li><i class="fa-solid fa-check-circle me-2"></i>Geometric Tolerance & Fit Analysis</li>
-                            <li><i class="fa-solid fa-check-circle me-2"></i>Tool Access & Machine Collision Check</li>
-                            <li><i class="fa-solid fa-check-circle me-2"></i>Annotated CAD Model with Corrections</li>
-                        </ul>
-                        <div class="mt-4">
-                            <span class="tech-badge">SolidWorks DFMX</span>
-                            <span class="tech-badge">Autodesk Netfabb</span>
-                            <span class="tech-badge">GD&T</span>
+                    
+                    <div class="filter-container">
+                        <button class="filter-btn active" data-filter="all">All Projects</button>
+                        <button class="filter-btn" data-filter="automotive">Automotive</button>
+                        <button class="filter-btn" data-filter="medical">Medical</button>
+                        <button class="filter-btn" data-filter="aerospace">Aerospace</button>
+                    </div>
+
+                    <div class="row g-4 projects-container" id="projects-dfm">
+                        <!-- DFM Project Card 1 -->
+                        <div class="col-lg-4 col-md-6 project-item" data-category="automotive">
+                            <div class="project-card">
+                                <div class="project-image-container">
+                                    <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?q=80&w=600&auto=format&fit=crop" class="project-image front" alt="Automotive Part Front">
+                                    <img src="https://images.unsplash.com/photo-1603732551681-2e91159b9dc2?q=80&w=600&auto=format&fit=crop" class="project-image back" alt="Automotive Part Back">
+                                </div>
+                                <div class="project-content">
+                                    <h3 class="project-title">Engine Mount Bracket</h3>
+                                    <span class="project-category">Automotive</span>
+                                    <p class="project-description">DFM analysis and optimization of engine mount bracket for mass production.</p>
+                                    <div class="project-tech">
+                                        <span class="tech-badge">SolidWorks DFMX</span>
+                                        <span class="tech-badge">GD&T</span>
+                                    </div>
+                                    <div class="project-links">
+                                        <a href="#" class="project-link view-details" data-bs-toggle="modal" data-bs-target="#projectModal" data-project-id="4">
+                                            <i class="fas fa-eye"></i> Details
+                                        </a>
+                                        <a href="#" class="project-link">
+                                            <i class="fas fa-file-pdf"></i> Report
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- DFM Project Card 2 -->
+                        <div class="col-lg-4 col-md-6 project-item" data-category="medical">
+                            <div class="project-card">
+                                <div class="project-image-container">
+                                    <img src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?q=80&w=600&auto=format&fit=crop" class="project-image front" alt="Medical Device Front">
+                                    <img src="https://images.unsplash.com/photo-1581094794329-c8112a89af12?q=80&w=600&auto=format&fit=crop" class="project-image back" alt="Medical Device Back">
+                                </div>
+                                <div class="project-content">
+                                    <h3 class="project-title">Surgical Instrument Handle</h3>
+                                    <span class="project-category">Medical</span>
+                                    <p class="project-description">Ergonomic handle design with DFM validation for sterilization compatibility.</p>
+                                    <div class="project-tech">
+                                        <span class="tech-badge">Fusion 360</span>
+                                        <span class="tech-badge">ANSYS</span>
+                                    </div>
+                                    <div class="project-links">
+                                        <a href="#" class="project-link view-details" data-bs-toggle="modal" data-bs-target="#projectModal" data-project-id="5">
+                                            <i class="fas fa-eye"></i> Details
+                                        </a>
+                                        <a href="#" class="project-link">
+                                            <i class="fas fa-file-pdf"></i> Report
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -303,108 +639,308 @@
 
             <!-- CAD for CNC Tab -->
             <div class="tab-pane fade" id="content-cnc-design" role="tabpanel" aria-labelledby="tab-cnc-design">
-                <div class="row g-4">
-                    <div class="col-lg-6">
-                        <img src="https://images.unsplash.com/photo-1559136555-9303baea8ebd?auto=format&fit=crop&w=800&q=80" class="project-image" alt="CNC Machined Aluminum Jig">
+                <div class="position-relative">
+                    <div class="view-toggle">
+                        <button class="view-btn active" data-view="grid" title="Grid View">
+                            <i class="fas fa-th"></i>
+                        </button>
+                        <button class="view-btn" data-view="list" title="List View">
+                            <i class="fas fa-list"></i>
+                        </button>
                     </div>
-                    <div class="col-lg-6">
-                        <h3 class="font-tech fw-bold mb-3">Precision Engineering for Subtractive Manufacturing</h3>
-                        <p class="text-white-50">CNC machining demands a different design philosophy. I design with toolpaths in mind, ensuring efficient material removal, minimizing tool changes, and achieving tight tolerances with ease.</p>
-                        <ul class="project-scope-list text-white-50">
-                            <li><i class="fa-solid fa-check-circle me-2"></i>Machining-Friendly Feature Design</li>
-                            <li><i class="fa-solid fa-check-circle me-2"></i>Stock Material & Workholding Strategy</li>
-                            <li><i class="fa-solid fa-check-circle me-2"></i>Tool Radius & Draft Angle Application</li>
-                            <li><i class="fa-solid fa-check-circle me-2"></i>2D Drawings with GD&T Callouts</li>
-                        </ul>
-                        <div class="mt-4">
-                            <span class="tech-badge">Fusion 360 CAM</span>
-                            <span class="tech-badge">SolidWorks CAM</span>
-                            <span class="tech-badge">Mastercam</span>
+                    
+                    <div class="filter-container">
+                        <button class="filter-btn active" data-filter="all">All Projects</button>
+                        <button class="filter-btn" data-filter="molds">Molds</button>
+                        <button class="filter-btn" data-filter="fixtures">Fixtures</button>
+                        <button class="filter-btn" data-filter="parts">Machined Parts</button>
+                    </div>
+
+                    <div class="row g-4 projects-container" id="projects-cnc">
+                        <!-- CNC Project Card 1 -->
+                        <div class="col-lg-4 col-md-6 project-item" data-category="molds">
+                            <div class="project-card">
+                                <div class="project-image-container">
+                                    <img src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?q=80&w=600&auto=format&fit=crop" class="project-image front" alt="Injection Mold Front">
+                                    <img src="https://images.unsplash.com/photo-1559136555-9303baea8ebd?q=80&w=600&auto=format&fit=crop" class="project-image back" alt="Injection Mold Back">
+                                </div>
+                                <div class="project-content">
+                                    <h3 class="project-title">Injection Mold Core</h3>
+                                    <span class="project-category">Mold</span>
+                                    <p class="project-description">Precision mold core with cooling channels optimized for cycle time reduction.</p>
+                                    <div class="project-tech">
+                                        <span class="tech-badge">Mastercam</span>
+                                        <span class="tech-badge">SolidWorks</span>
+                                    </div>
+                                    <div class="project-links">
+                                        <a href="#" class="project-link view-details" data-bs-toggle="modal" data-bs-target="#projectModal" data-project-id="6">
+                                            <i class="fas fa-eye"></i> Details
+                                        </a>
+                                        <a href="#" class="project-link">
+                                            <i class="fas fa-download"></i> G-Code
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- CNC Project Card 2 -->
+                        <div class="col-lg-4 col-md-6 project-item" data-category="fixtures">
+                            <div class="project-card">
+                                <div class="project-image-container">
+                                    <img src="https://images.unsplash.com/photo-1603732551681-2e91159b9dc2?q=80&w=600&auto=format&fit=crop" class="project-image front" alt="Welding Fixture Front">
+                                    <img src="https://images.unsplash.com/photo-1581094794329-c8112a89af12?q=80&w=600&auto=format&fit=crop" class="project-image back" alt="Welding Fixture Back">
+                                </div>
+                                <div class="project-content">
+                                    <h3 class="project-title">Welding Fixture Assembly</h3>
+                                    <span class="project-category">Fixture</span>
+                                    <p class="project-description">Custom welding fixture for automotive chassis components with quick-change features.</p>
+                                    <div class="project-tech">
+                                        <span class="tech-badge">Fusion 360 CAM</span>
+                                        <span class="tech-badge">HSMWorks</span>
+                                    </div>
+                                    <div class="project-links">
+                                        <a href="#" class="project-link view-details" data-bs-toggle="modal" data-bs-target="#projectModal" data-project-id="7">
+                                            <i class="fas fa-eye"></i> Details
+                                        </a>
+                                        <a href="#" class="project-link">
+                                            <i class="fas fa-download"></i> DWG
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Python Automation Tab (DETAILED VERSION) -->
-            <div class="tab-pane fade show active" id="content-python-automation" role="tabpanel" aria-labelledby="tab-python-automation">
-                
-                <!-- 1. Hero Section: Image + Summary -->
-                <div class="row g-5 mb-5 pb-4 border-bottom border-secondary">
-                    <div class="col-lg-7">
-                        <img src="https://images.unsplash.com/photo-1518432031352-d6fc5c10da5a?auto=format&fit=crop&w=1200&q=80" class="project-image" alt="Generative Heat Sink Design Render">
+            <!-- Python Automation Tab -->
+            <div class="tab-pane fade show" id="content-python-automation" role="tabpanel" aria-labelledby="tab-python-automation">
+                <div class="position-relative">
+                    <div class="view-toggle">
+                        <button class="view-btn active" data-view="grid" title="Grid View">
+                            <i class="fas fa-th"></i>
+                        </button>
+                        <button class="view-btn" data-view="list" title="List View">
+                            <i class="fas fa-list"></i>
+                        </button>
                     </div>
-                    <div class="col-lg-5">
-                        <h3 class="font-tech fw-bold mb-3">Project: Generative Heat Sink Designer</h3>
-                        <p class="text-white-50 mb-4">
-                            Developed a Python-based automation tool for an R&D lab that transforms thermal requirements into a fully optimized, CNC-ready heat sink design in seconds. This system bridges the gap between simulation and production.
-                        </p>
-                        <div class="mb-4">
-                            <span class="tech-badge">Python</span>
-                            <span class="tech-badge">Fusion 360 API</span>
-                            <span class="tech-badge">PySide/Qt</span>
-                        </div>
-                        <h5 class="font-tech text-info mb-3">Project Scope:</h5>
-                        <ul class="project-scope-list text-white-50">
-                            <li><i class="fa-solid fa-bolt me-2"></i>Automated thermal-to-geometry translation</li>
-                            <li><i class="fa-solid fa-cog me-2"></i>Integrated DFM rule checking for CNC</li>
-                            <li><i class="fa-solid fa-gauge-high me-2"></i>Reduced design cycle from hours to minutes</li>
-                        </ul>
+                    
+                    <div class="filter-container">
+                        <button class="filter-btn active" data-filter="all">All Projects</button>
+                        <button class="filter-btn" data-filter="cad">CAD Automation</button>
+                        <button class="filter-btn" data-filter="cam">CAM Automation</button>
+                        <button class="filter-btn" data-filter="analysis">Analysis Tools</button>
                     </div>
-                </div>
 
-                <!-- 2. Detailed Breakdown -->
-                <div class="row g-5 mb-5 pb-4 border-bottom border-secondary">
-                    <div class="col-lg-12">
-                        <h4 class="font-tech fw-bold text-info mb-4">The Challenge & Solution</h4>
-                        <p class="text-white-50">
-                            The client's engineers were spending countless hours manually iterating on heat sink designs in CAD after running thermal simulations. Each design change required manual re-modeling, re-checking for manufacturability, and re-exporting files. This was a major bottleneck in their R&D process.
-                        </p>
-                        <p class="text-white-50">
-                            My solution was a custom Python script integrated directly into their CAD environment (Autodesk Fusion 360). The script features a simple user interface where the engineer inputs key parameters: target thermal load, maximum dimensions, and material. The script then automatically calculates the optimal fin geometry, applies all necessary CNC-specific constraints (like fillets for tool radii), validates the model against a pre-defined DFM rule set, and exports the final STEP and 2D DXF files for manufacturing.
-                        </p>
-                        <div class="glass-card p-3 font-code small mt-4">
-<pre class="mb-0 text-white-50">
-# Core Logic Snippet
-def generate_heat_sink(thermal_load, max_dims):
-    # Phase 1: Algorithmic Design
-    fin_count = calculate_optimal_fins(thermal_load)
-    fin_thickness = apply_cnc_constraint(fin_count, max_dims)
-    
-    # Phase 2: Automated CAD Modeling
-    create_base_plate(max_dims)
-    create_fin_geometry(fin_count, fin_thickness)
-    
-    # Phase 3: Validation & Export
-    validate_dfm_rules()
-    export_step_and_dxf()
-    print("Manufacturing-ready part generated.")</pre>
+                    <div class="row g-4 projects-container" id="projects-python">
+                        <!-- Python Project Card 1 -->
+                        <div class="col-lg-4 col-md-6 project-item" data-category="cad">
+                            <div class="project-card">
+                                <div class="project-image-container">
+                                    <img src="https://images.unsplash.com/photo-1518432031352-d6fc5c10da5a?q=80&w=600&auto=format&fit=crop" class="project-image front" alt="Heat Sink Designer Front">
+                                    <img src="https://plus.unsplash.com/premium_photo-1663047019075-74ca19d974ba?q=80&w=600&auto=format&fit=crop" class="project-image back" alt="Heat Sink Designer Back">
+                                </div>
+                                <div class="project-content">
+                                    <h3 class="project-title">Generative Heat Sink Designer</h3>
+                                    <span class="project-category">CAD Automation</span>
+                                    <p class="project-description">Python tool that generates optimized heat sink designs based on thermal requirements.</p>
+                                    <div class="project-tech">
+                                        <span class="tech-badge">Python</span>
+                                        <span class="tech-badge">Fusion 360 API</span>
+                                        <span class="tech-badge">PySide</span>
+                                    </div>
+                                    <div class="project-links">
+                                        <a href="#" class="project-link view-details" data-bs-toggle="modal" data-bs-target="#projectModal" data-project-id="8">
+                                            <i class="fas fa-eye"></i> Details
+                                        </a>
+                                        <a href="#" class="project-link">
+                                            <i class="fab fa-github"></i> GitHub
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                </div>
 
-                <!-- 3. Visual Evidence Gallery -->
-                <div class="row g-5">
-                    <div class="col-lg-12">
-                        <h4 class="font-tech fw-bold text-info mb-4">Project Gallery & Evidence</h4>
-                        <p class="text-white-50 mb-4">A visual walkthrough of the system's interface, outputs, and the final manufactured parts.</p>
-                    </div>
-                    <div class="col-md-6 col-lg-4">
-                        <img src="https://plus.unsplash.com/premium_photo-1663047019075-74ca19d974ba?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" class="img-fluid gallery-image" alt="Python GUI for the tool">
-                        <p class="small text-white-50 mt-2 text-center">Custom GUI for non-technical users.</p>
-                    </div>
-                    <div class="col-md-6 col-lg-4">
-                        <img src="https://images.unsplash.com/photo-1603732551681-2e91159b9dc2?auto=format&fit=crop&w=600&q=80" class="img-fluid gallery-image" alt="CNC Machining the part">
-                        <p class="small text-white-50 mt-2 text-center">CNC machining the generated part.</p>
-                    </div>
-                    <div class="col-md-6 col-lg-4">
-                        <img src="https://images.unsplash.com/photo-1581094794329-c8112a89af12?auto=format&fit=crop&w=600&q=80" class="img-fluid gallery-image" alt="Final installed heat sink">
-                        <p class="small text-white-50 mt-2 text-center">Final part installed and operational.</p>
+                        <!-- Python Project Card 2 -->
+                        <div class="col-lg-4 col-md-6 project-item" data-category="cam">
+                            <div class="project-card">
+                                <div class="project-image-container">
+                                    <img src="https://images.unsplash.com/photo-1603732551681-2e91159b9dc2?q=80&w=600&auto=format&fit=crop" class="project-image front" alt="Toolpath Optimizer Front">
+                                    <img src="https://images.unsplash.com/photo-1581094794329-c8112a89af12?q=80&w=600&auto=format&fit=crop" class="project-image back" alt="Toolpath Optimizer Back">
+                                </div>
+                                <div class="project-content">
+                                    <h3 class="project-title">Intelligent Toolpath Optimizer</h3>
+                                    <span class="project-category">CAM Automation</span>
+                                    <p class="project-description">AI-powered toolpath optimization system that reduces machining time by 40%.</p>
+                                    <div class="project-tech">
+                                        <span class="tech-badge">Python</span>
+                                        <span class="tech-badge">TensorFlow</span>
+                                        <span class="tech-badge">Post-Processor</span>
+                                    </div>
+                                    <div class="project-links">
+                                        <a href="#" class="project-link view-details" data-bs-toggle="modal" data-bs-target="#projectModal" data-project-id="9">
+                                            <i class="fas fa-eye"></i> Details
+                                        </a>
+                                        <a href="#" class="project-link">
+                                            <i class="fab fa-github"></i> GitHub
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Python Project Card 3 -->
+                        <div class="col-lg-4 col-md-6 project-item" data-category="analysis">
+                            <div class="project-card">
+                                <div class="project-image-container">
+                                    <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?q=80&w=600&auto=format&fit=crop" class="project-image front" alt="Stress Analyzer Front">
+                                    <img src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?q=80&w=600&auto=format&fit=crop" class="project-image back" alt="Stress Analyzer Back">
+                                </div>
+                                <div class="project-content">
+                                    <h3 class="project-title">Automated Stress Analysis</h3>
+                                    <span class="project-category">Analysis Tool</span>
+                                    <p class="project-description">Batch processing tool for FEA analysis of large component libraries.</p>
+                                    <div class="project-tech">
+                                        <span class="tech-badge">Python</span>
+                                        <span class="tech-badge">ANSYS API</span>
+                                        <span class="tech-badge">Pandas</span>
+                                    </div>
+                                    <div class="project-links">
+                                        <a href="#" class="project-link view-details" data-bs-toggle="modal" data-bs-target="#projectModal" data-project-id="10">
+                                            <i class="fas fa-eye"></i> Details
+                                        </a>
+                                        <a href="#" class="project-link">
+                                            <i class="fab fa-github"></i> GitHub
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Python Project Card 4 -->
+                        <div class="col-lg-4 col-md-6 project-item" data-category="cad">
+                            <div class="project-card">
+                                <div class="project-image-container">
+                                    <img src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?q=80&w=600&auto=format&fit=crop" class="project-image front" alt="Parametric Generator Front">
+                                    <img src="https://images.unsplash.com/photo-1581094794329-c8112a89af12?q=80&w=600&auto=format&fit=crop" class="project-image back" alt="Parametric Generator Back">
+                                </div>
+                                <div class="project-content">
+                                    <h3 class="project-title">Parametric Component Library</h3>
+                                    <span class="project-category">CAD Automation</span>
+                                    <p class="project-description">Automated generation of standard components with configurable parameters.</p>
+                                    <div class="project-tech">
+                                        <span class="tech-badge">Python</span>
+                                        <span class="tech-badge">OpenSCAD</span>
+                                        <span class="tech-badge">FreeCAD</span>
+                                    </div>
+                                    <div class="project-links">
+                                        <a href="#" class="project-link view-details" data-bs-toggle="modal" data-bs-target="#projectModal" data-project-id="11">
+                                            <i class="fas fa-eye"></i> Details
+                                        </a>
+                                        <a href="#" class="project-link">
+                                            <i class="fab fa-github"></i> GitHub
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Python Project Card 5 -->
+                        <div class="col-lg-4 col-md-6 project-item" data-category="cam">
+                            <div class="project-card">
+                                <div class="project-image-container">
+                                    <img src="https://plus.unsplash.com/premium_photo-1663047019075-74ca19d974ba?q=80&w=600&auto=format&fit=crop" class="project-image front" alt="Quality Inspector Front">
+                                    <img src="https://images.unsplash.com/photo-1603732551681-2e91159b9dc2?q=80&w=600&auto=format&fit=crop" class="project-image back" alt="Quality Inspector Back">
+                                </div>
+                                <div class="project-content">
+                                    <h3 class="project-title">Machine Vision QC System</h3>
+                                    <span class="project-category">CAM Automation</span>
+                                    <p class="project-description">Real-time quality control system using computer vision for manufactured parts.</p>
+                                    <div class="project-tech">
+                                        <span class="tech-badge">Python</span>
+                                        <span class="tech-badge">OpenCV</span>
+                                        <span class="tech-badge">TensorFlow</span>
+                                    </div>
+                                    <div class="project-links">
+                                        <a href="#" class="project-link view-details" data-bs-toggle="modal" data-bs-target="#projectModal" data-project-id="12">
+                                            <i class="fas fa-eye"></i> Details
+                                        </a>
+                                        <a href="#" class="project-link">
+                                            <i class="fab fa-github"></i> GitHub
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Python Project Card 6 -->
+                        <div class="col-lg-4 col-md-6 project-item" data-category="analysis">
+                            <div class="project-card">
+                                <div class="project-image-container">
+                                    <img src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?q=80&w=600&auto=format&fit=crop" class="project-image front" alt="Data Dashboard Front">
+                                    <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?q=80&w=600&auto=format&fit=crop" class="project-image back" alt="Data Dashboard Back">
+                                </div>
+                                <div class="project-content">
+                                    <h3 class="project-title">Manufacturing Analytics Dashboard</h3>
+                                    <span class="project-category">Analysis Tool</span>
+                                    <p class="project-description">Real-time dashboard for monitoring production metrics and predictive maintenance.</p>
+                                    <div class="project-tech">
+                                        <span class="tech-badge">Python</span>
+                                        <span class="tech-badge">Dash</span>
+                                        <span class="tech-badge">Plotly</span>
+                                    </div>
+                                    <div class="project-links">
+                                        <a href="#" class="project-link view-details" data-bs-toggle="modal" data-bs-target="#projectModal" data-project-id="13">
+                                            <i class="fas fa-eye"></i> Details
+                                        </a>
+                                        <a href="#" class="project-link">
+                                            <i class="fas fa-external-link-alt"></i> Live Demo
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-
         </div>
     </main>
+
+    <!-- Project Details Modal -->
+    <div class="modal fade" id="projectModal" tabindex="-1" aria-labelledby="projectModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title font-tech" id="projectModalLabel">Project Details</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <img id="modal-image" src="" class="img-fluid rounded" alt="Project Image">
+                        </div>
+                        <div class="col-md-6">
+                            <h4 id="modal-title" class="font-tech text-info mb-3"></h4>
+                            <p id="modal-description" class="text-white-50"></p>
+                            
+                            <h6 class="font-tech text-info mt-4 mb-3">Key Features:</h6>
+                            <ul id="modal-features" class="feature-list text-white-50">
+                            </ul>
+                            
+                            <h6 class="font-tech text-info mt-4 mb-3">Technologies Used:</h6>
+                            <div id="modal-tech" class="modal-tech-list">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <a id="modal-link" href="#" class="btn btn-info" target="_blank">View Project</a>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <footer class="py-4 mt-5 border-top border-secondary">
         <div class="container">
@@ -420,5 +956,194 @@ def generate_heat_sink(thermal_load, max_dims):
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Project data - This would come from Django in production
+        const projectData = {
+            1: {
+                title: "Carbon Fiber Drone Frame",
+                description: "A lightweight quadcopter frame designed for 3D printing using carbon fiber reinforced nylon. The design features optimized wall thickness, integrated mounting points, and aerodynamic considerations.",
+                features: ["Weight optimized at 145g", "Integrated vibration dampening", "Modular arm design", "Cable management channels"],
+                technologies: ["Fusion 360", "Cura", "Carbon Fiber Nylon", "Topology Optimization"],
+                image: "https://images.unsplash.com/photo-1581092160562-40aa08e78837?q=80&w=800&auto=format&fit=crop",
+                link: "#"
+            },
+            2: {
+                title: "Industrial Gear Housing",
+                description: "Complex gear housing with internal cooling channels for aerospace application. Manufactured using DMLS (Direct Metal Laser Sintering) technology.",
+                features: ["Internal conformal cooling", "Weight reduction 40%", "Integrated sensors", "Heat treatment compatible"],
+                technologies: ["SolidWorks", "Netfabb", "DMLS", "Inconel 718"],
+                image: "https://images.unsplash.com/photo-1559136555-9303baea8ebd?q=80&w=800&auto=format&fit=crop",
+                link: "#"
+            },
+            3: {
+                title: "Custom Electronics Enclosure",
+                description: "Waterproof enclosure for IoT devices with IP67 rating. Features snap-fit design for assembly without fasteners.",
+                features: ["IP67 waterproof rating", "Snap-fit assembly", "RF transparent sections", "Heat dissipation design"],
+                technologies: ["Fusion 360", "PrusaSlicer", "PETG", "Silicone Gaskets"],
+                image: "https://plus.unsplash.com/premium_photo-1663047019075-74ca19d974ba?q=80&w=800&auto=format&fit=crop",
+                link: "#"
+            },
+            4: {
+                title: "Engine Mount Bracket",
+                description: "DFM analysis and optimization of engine mount bracket for mass production. Reduced part cost by 35% through design optimization.",
+                features: ["Cost reduction 35%", "Weight reduction 22%", "Improved fatigue life", "Simplified assembly"],
+                technologies: ["SolidWorks DFMX", "GD&T", "FEA Analysis", "Cost Analysis"],
+                image: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?q=80&w=800&auto=format&fit=crop",
+                link: "#"
+            },
+            5: {
+                title: "Surgical Instrument Handle",
+                description: "Ergonomic handle design with DFM validation for sterilization compatibility. Meets FDA medical device requirements.",
+                features: ["Ergonomic design", "Autoclave compatible", "FDA compliant", "Anti-slip texture"],
+                technologies: ["Fusion 360", "ANSYS", "Medical Grade Materials", "ISO 13485"],
+                image: "https://images.unsplash.com/photo-1576091160550-2173dba999ef?q=80&w=800&auto=format&fit=crop",
+                link: "#"
+            },
+            6: {
+                title: "Injection Mold Core",
+                description: "Precision mold core with conformal cooling channels optimized for cycle time reduction. Achieved 30% faster cycle times.",
+                features: ["Conformal cooling", "Cycle time reduction 30%", "Improved part quality", "Extended tool life"],
+                technologies: ["Mastercam", "SolidWorks", "Conformal Cooling", "P20 Steel"],
+                image: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?q=80&w=800&auto=format&fit=crop",
+                link: "#"
+            },
+            7: {
+                title: "Welding Fixture Assembly",
+                description: "Custom welding fixture for automotive chassis components with quick-change features. Reduced setup time by 60%.",
+                features: ["Quick-change design", "Zero-point clamping", "Integrated safety", "Modular system"],
+                technologies: ["Fusion 360 CAM", "HSMWorks", "Aluminum 6061", "Hardened Steel Pins"],
+                image: "https://images.unsplash.com/photo-1603732551681-2e91159b9dc2?q=80&w=800&auto=format&fit=crop",
+                link: "#"
+            },
+            8: {
+                title: "Generative Heat Sink Designer",
+                description: "Python tool that generates optimized heat sink designs based on thermal requirements. Reduces design time from hours to minutes.",
+                features: ["Automated design generation", "Thermal optimization", "DFM rule checking", "Multi-material support"],
+                technologies: ["Python", "Fusion 360 API", "PySide", "Thermal Analysis"],
+                image: "https://images.unsplash.com/photo-1518432031352-d6fc5c10da5a?q=80&w=800&auto=format&fit=crop",
+                link: "#"
+            },
+            9: {
+                title: "Intelligent Toolpath Optimizer",
+                description: "AI-powered toolpath optimization system that reduces machining time by 40% while maintaining surface quality.",
+                features: ["40% time reduction", "Adaptive toolpaths", "Collision avoidance", "Tool wear prediction"],
+                technologies: ["Python", "TensorFlow", "Post-Processor", "Machine Learning"],
+                image: "https://images.unsplash.com/photo-1603732551681-2e91159b9dc2?q=80&w=800&auto=format&fit=crop",
+                link: "#"
+            },
+            10: {
+                title: "Automated Stress Analysis",
+                description: "Batch processing tool for FEA analysis of large component libraries. Processes 1000+ components automatically.",
+                features: ["Batch processing", "Automated meshing", "Result visualization", "Report generation"],
+                technologies: ["Python", "ANSYS API", "Pandas", "Matplotlib"],
+                image: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?q=80&w=800&auto=format&fit=crop",
+                link: "#"
+            },
+            11: {
+                title: "Parametric Component Library",
+                description: "Automated generation of standard components with configurable parameters. Supports 50+ component types.",
+                features: ["50+ component types", "Parametric configuration", "Standard compliance", "Auto documentation"],
+                technologies: ["Python", "OpenSCAD", "FreeCAD", "JSON Config"],
+                image: "https://images.unsplash.com/photo-1576091160550-2173dba999ef?q=80&w=800&auto=format&fit=crop",
+                link: "#"
+            },
+            12: {
+                title: "Machine Vision QC System",
+                description: "Real-time quality control system using computer vision for manufactured parts. 99.5% defect detection rate.",
+                features: ["99.5% accuracy", "Real-time processing", "Defect classification", "Data analytics"],
+                technologies: ["Python", "OpenCV", "TensorFlow", "Industrial Cameras"],
+                image: "https://plus.unsplash.com/premium_photo-1663047019075-74ca19d974ba?q=80&w=800&auto=format&fit=crop",
+                link: "#"
+            },
+            13: {
+                title: "Manufacturing Analytics Dashboard",
+                description: "Real-time dashboard for monitoring production metrics and predictive maintenance. Reduces downtime by 25%.",
+                features: ["Real-time monitoring", "Predictive maintenance", "OEE tracking", "Alert system"],
+                technologies: ["Python", "Dash", "Plotly", "Time Series DB"],
+                image: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?q=80&w=800&auto=format&fit=crop",
+                link: "#"
+            }
+        };
+
+        // Initialize when DOM is loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            // Handle modal data population
+            const projectModal = document.getElementById('projectModal');
+            projectModal.addEventListener('show.bs.modal', function(event) {
+                const button = event.relatedTarget;
+                const projectId = button.getAttribute('data-project-id');
+                const project = projectData[projectId];
+                
+                if (project) {
+                    document.getElementById('modal-title').textContent = project.title;
+                    document.getElementById('modal-description').textContent = project.description;
+                    document.getElementById('modal-image').src = project.image;
+                    document.getElementById('modal-link').href = project.link;
+                    
+                    // Populate features
+                    const featuresList = document.getElementById('modal-features');
+                    featuresList.innerHTML = '';
+                    project.features.forEach(feature => {
+                        const li = document.createElement('li');
+                        li.innerHTML = `<i class="fa-solid fa-check-circle"></i>${feature}`;
+                        featuresList.appendChild(li);
+                    });
+                    
+                    // Populate technologies
+                    const techContainer = document.getElementById('modal-tech');
+                    techContainer.innerHTML = '';
+                    project.technologies.forEach(tech => {
+                        const span = document.createElement('span');
+                        span.className = 'tech-badge';
+                        span.textContent = tech;
+                        techContainer.appendChild(span);
+                    });
+                }
+            });
+
+            // Handle filter buttons
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const filter = this.getAttribute('data-filter');
+                    const container = this.closest('.tab-pane').querySelector('.projects-container');
+                    const items = container.querySelectorAll('.project-item');
+                    
+                    // Update active button
+                    this.closest('.filter-container').querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    // Filter items
+                    items.forEach(item => {
+                        if (filter === 'all' || item.getAttribute('data-category') === filter) {
+                            item.style.display = '';
+                        } else {
+                            item.style.display = 'none';
+                        }
+                    });
+                });
+            });
+
+            // Handle view toggle
+            document.querySelectorAll('.view-toggle').forEach(toggle => {
+                toggle.querySelectorAll('.view-btn').forEach(btn => {
+                    btn.addEventListener('click', function() {
+                        const view = this.getAttribute('data-view');
+                        const container = this.closest('.tab-pane').querySelector('.projects-container');
+                        
+                        // Update active button
+                        this.closest('.view-toggle').querySelectorAll('.view-btn').forEach(b => b.classList.remove('active'));
+                        this.classList.add('active');
+                        
+                        // Toggle view class
+                        if (view === 'list') {
+                            container.classList.add('list-view');
+                        } else {
+                            container.classList.remove('list-view');
+                        }
+                    });
+                });
+            });
+        });
+    </script>
 </body>
 </html>
